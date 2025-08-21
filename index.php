@@ -2,15 +2,15 @@
 
 $FF_PAGE_ENABLED = true;
 
-$name_groom = "Test1";
-$name_bride = "Test2";
-$img_carousel1 = "20240914_114409_cori_carrying.jpg";
+$name_groom = "Oscar";
+$name_bride = "Angel";
+$img_carousel1 = "roses.jpg";
 $img_menu_cover = "menu-cover.png";
 $img_menu_bot = "menu-bot.png";
 
-$support_name = "Joshua Wong";
+$support_name = "Joshua Wong & K2";
 $support_email = "joshua@josh-wong.net";
-$support_domain = "https://wedding.josh-wong.net/test";
+$support_domain = "https://wedding.josh-wong.net";
 
 ?>
 
