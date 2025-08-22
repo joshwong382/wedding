@@ -300,7 +300,12 @@ $support_domain = "https://wedding.josh-wong.net";
       <div id="header-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item position-relative active">
-            <img class="position-absolute h-100 w-100" src="img/<?php echo "$img_carousel1" ?>" style="object-fit: cover; object-position: 45% 80%;" />
+            <picture>
+                <!-- Mobile version -->
+                    <source srcset="img/mobilebg.jpg" media="(max-width: 768px)">
+                <!-- Desktop version -->
+                    <img class="position-absolute h-100 w-100" src="img/<?php echo "$img_carousel1" ?>" style="object-fit: cover; object-position: 45% 80%;" />
+            </picture>
             <div class="position-relative" style="height: 110vh;">
               <div>
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
