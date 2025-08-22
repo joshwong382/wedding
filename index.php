@@ -8,7 +8,7 @@ $img_carousel1 = "roses.jpg";
 $img_menu_cover = "menu-cover.png";
 $img_menu_bot = "menu-bot.png";
 
-$support_name = "Joshua Wong & K2";
+$support_name = "Joshua Wong & Kevin To";
 $support_email = "joshua@josh-wong.net";
 $support_domain = "https://wedding.josh-wong.net";
 
@@ -343,24 +343,25 @@ $support_domain = "https://wedding.josh-wong.net";
                 <div class="col-md-4">
                     <div class="text-center text-md-right ml-md-3 mb-md-0">
                         <h4 class="mb-2 mt-5 font-secondary"><u>First Course</u></h4>
-                        <p class="mb-2"><b>Forest Mushroom Soup</b></p>
-                        <p class="mb-2">truffle Essence</p>
+                        <p class="mb-2"><b>Mixed Greens Cucumber Bouquet</b></p>
+                        <p class="mb-2">Candied Pecans, Goat’s Cheese </p>
+                        <p class="mb-2">Heirloom Tomatoes, Balsamic Vinaigrette</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="text-center text-md-center">
                         <h4 class="mb-2 mt-5 font-secondary"><u>Second Course</u></h4>
                         <p class="mb-2"><b>8 oz. Boneless Red Wine Braised Beef Short Ribs</b></p>
-                        <p class="mb-2">roasted garlic potato pave</p>
-                        <p class="mb-2">chef’s choice seasonal vegetables</p>
+                        <p class="mb-2">Roasted Garlic Potato Pave</p>
+                        <p class="mb-2">Fresh Snipped Carrot & Asparagus</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="text-center text-md-left ml-md-3 mb-md-0">
                         <h4 class="mb-2 mt-5 font-secondary"><u>Third Course</u></h4>
                         <p class="mb-2"><b>Warm Apple Blossom</b></p>
-                        <p class="mb-2">butterscotch drizzle</p>
-                        <p class="mb-2">french vanilla ice cream</p>
+                        <p class="mb-2">Butterscotch Drizzle</p>
+                        <p class="mb-2">French Vanilla Ice Cream</p>
                     </div>
                 </div>
             </div>
@@ -370,11 +371,10 @@ $support_domain = "https://wedding.josh-wong.net";
             <div class="row justify-content-center">
               <div class="col-md-4 text-center text-md-center">
                 <h4 class="mb-2 mt-4 font-secondary"><u>Late Night Station</u></h4>
-                  <p class="mb-2"><b>Cupcakes</b></p>
-                  <p class="mb-2">matcha</p>
-                  <p class="mb-2">earl grey</p>
-                  <p class="mb-2">passion fruit</p>
-                  <p class="mb-2">chocolate hazelnut <small>(contains nuts)</small></p>
+                  <p class="mb-2"><b>EXTREME POUTINE STATION</b></p>
+                  <p class="mb-2">Yukon Gold & Sweet Potato Fries, Pulled Pork, Bacon Bits, Scallions, Sour Cream, Shredded Cheddar Cheese, Fresh Cheese Curds, Sautéed Mushrooms, Diced Tomatoes, Jalapeno Peppers, Home-Style Beef Gravy & Cheese Sauce served in Authentic Take-Away Containers</p>
+
+
               </div>
             </div>
             <div class="row justify-content-center mt-4">
