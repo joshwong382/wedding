@@ -7,6 +7,7 @@ $name_bride = "Angel";
 $img_carousel1 = "aobkgd.jpg";
 $img_menu_cover = "menu-cover.png";
 $img_menu_bot = "menu-bot.png";
+$img_menu_bot2 = "menu-bot2.png";
 
 $support_name = "Joshua Wong & Kevin To";
 $support_email = "joshua@josh-wong.net";
@@ -383,7 +384,7 @@ $support_domain = "https://wedding.josh-wong.net";
               </div>
             </div>
             <div class="row justify-content-center mt-4">
-              <img src="img/<?php echo $img_menu_bot ?>" style="object-fit: cover; max-width: 100%; max-height: 10vh;">
+              <img src="img/<?php echo $img_menu_bot2 ?>" style="object-fit: cover; max-width: 100%; max-height: 10vh;">
             </div>
         </div>
     </div>
