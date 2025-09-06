@@ -416,7 +416,7 @@ $support_domain = "https://wedding.josh-wong.net";
     <!-- Appendix Full Seating Chart Image -->
     <div class="container-fluid py-5" id="event">
       <div class="container pb-5" style="max-width: 85%;">
-        <img src="img/seating-chart-full.png" style="object-fit: contain; max-width: 100%;">
+        <img src="img/seating-chart-full.jpg" style="object-fit: contain; max-width: 100%;">
       </div>
     </div>
 
