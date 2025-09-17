@@ -9,8 +9,8 @@ $img_menu_cover = "menu-cover.png";
 $img_menu_bot = "menu-bot.png";
 $img_menu_bot2 = "menu-bot2.png";
 
-$support_name = "Joshua Wong & Kevin To";
-$support_email = "joshua@josh-wong.net";
+$support_name = "Joshua Wong<br>& Kevin To";
+$support_email = "joshua@josh-wong.net<br>kevinwto@hotmail.com";
 $support_domain = "https://wedding.josh-wong.net";
 
 ?>
@@ -43,6 +43,7 @@ $support_domain = "https://wedding.josh-wong.net";
 
   <!-- Customized Bootstrap Stylesheet -->
   <link href="css/style.css" rel="stylesheet">
+  <link href="css/textbox.css" rel="stylesheet">
 
   <!-- Override footer CSS colors -->
   <style>
@@ -318,8 +319,8 @@ $support_domain = "https://wedding.josh-wong.net";
                     <div></div>
                     <div class="d-inline-block py-3 px-4" style="letter-spacing: 2px;"><br>
                       <div id="nameQueryLbl" class="border-light">
-                        <label class="border-light font-weight-normal text-white mx-auto" style="letter-spacing: 1.5px;" for="name">Enter your name: </label>
-                        <input type="text" class="text-center text-sm-left" id="inputName" name="name" value="">
+                        <label class="border-light font-weight-normal text-white mx-auto" style="letter-spacing: 1.5px;" for="name">enter your name</label><br>
+                        <input type="text" class="text-center starry-textbox" id="inputName" name="name" value="">
                         <br><br>
                       </div>
                       <br><div id=tableDisplay class="border-light font-weight-normal text-white mx-auto hide-scrollbar" style="letter-spacing: 1px; max-height: 55vh; overflow: hidden;"></div>
@@ -415,7 +416,7 @@ $support_domain = "https://wedding.josh-wong.net";
 
     <!-- Appendix Full Seating Chart Image -->
     <div class="container-fluid py-5" id="event">
-      <div class="container pb-5" style="max-width: 85%;">
+      <div class="container pb-5 text-center" style="max-width: 85%;">
         <img src="img/seating-chart-full.png" style="object-fit: contain; max-width: 100%;">
       </div>
     </div>
