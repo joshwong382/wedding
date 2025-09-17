@@ -312,12 +312,13 @@ $support_domain = "https://wedding.josh-wong.net";
               <div>
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                   <div class="p-3" style="max-width: 900px; position: relative; overflow: hidden;">
-                    <h1 class="display-1 font-secondary text-white mb-md-4"><?php echo "$name_bride & $name_groom" ?></h1>
-                    <div class="d-inline-block border-top border-bottom border-light py-3 px-4">
+		    <h1 class="display-1 font-secondary text-white mb-md-4 hero-element delay-1"><?php echo "$name_bride & $name_groom" ?></h1>
+		    <br>
+                    <div class="d-inline-block border-top border-bottom border-light py-3 px-4 hero-element delay-2">
                         <h3 class="text-uppercase font-weight-normal text-white m-0" style="letter-spacing: 2px;">Find your table</h3>
                     </div>
                     <div></div>
-                    <div class="d-inline-block py-3 px-4" style="letter-spacing: 2px;"><br>
+                    <div class="d-inline-block py-3 px-4 hero-element delay-3" style="letter-spacing: 2px;"><br>
                       <div id="nameQueryLbl" class="border-light">
                         <label class="border-light font-weight-normal text-white mx-auto" style="letter-spacing: 1.5px;" for="name">enter your name</label><br>
                         <input type="text" class="text-center starry-textbox" id="inputName" name="name" value="">

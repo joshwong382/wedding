@@ -9776,3 +9776,165 @@ a.text-dark:hover, a.text-dark:focus {
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
 }
+
+/* Elegant Animation Styles */
+.hero-title {
+  opacity: 0;
+  transform: translateY(50px) scale(0.9);
+  animation: titleEnter 2s ease-out 0.5s forwards;
+}
+
+.hero-subtitle {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: subtitleEnter 1.5s ease-out 2.8s forwards;
+}
+
+.hero-input-section {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: inputEnter 1.5s ease-out 4.5s forwards;
+}
+
+@keyframes titleEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes subtitleEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes inputEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add gentle floating effect for the title after entrance */
+.hero-title.floating {
+  animation: titleFloat 4s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Enhance the text input with focus animation */
+.starry-textbox {
+  transition: all 0.3s ease;
+}
+
+.starry-textbox:focus {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Stagger animation for multiple elements */
+.animate-stagger-1 { animation-delay: 0.5s; }
+.animate-stagger-2 { animation-delay: 2.8s; }
+.animate-stagger-3 { animation-delay: 4.5s; }
+
+
+/* Elegant Animation Styles - Simplified */
+.hero-title {
+  opacity: 0;
+  transform: translateY(50px) scale(0.9);
+  animation: titleEnter 2s ease-out 0.5s forwards;
+  animation-fill-mode: both;
+}
+
+.hero-element {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: elementEnter 1.5s ease-out forwards;
+  animation-fill-mode: both;
+}
+
+.hero-element.delay-1 {
+  animation-delay: 2.8s;
+}
+
+.hero-element.delay-2 {
+  animation-delay: 4.3s;
+}
+
+.hero-element.delay-3 {
+  animation-delay: 5.8s;
+}
+
+@keyframes titleEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes elementEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced text input with focus animation */
+.starry-textbox {
+  transition: all 0.3s ease;
+}
+
+.starry-textbox:focus {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
