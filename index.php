@@ -62,6 +62,15 @@ $support_domain = "https://wedding.josh-wong.net";
       background-color: #A32140 !important;
     }
 
+    /* Mobile-only fix for tableDisplay layout shift */
+    @media (max-width: 768px) {
+      #tableDisplay {
+        height: 55vh !important;
+        min-height: 55vh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+      }
+    }
   </style>
 
 
@@ -247,7 +256,15 @@ $support_domain = "https://wedding.josh-wong.net";
   Hook into HTML
 
   */
+  // Ensure page starts at top on refresh
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+  }
+  window.scrollTo(0, 0);
+
   window.onload=function() {
+    // Scroll to top on page load
+    window.scrollTo(0, 0);
     window.changeInputContent = changeInputContent;
     let seatingChart = seatingChartData;
     var inputElementName = "inputName"
