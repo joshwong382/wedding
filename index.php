@@ -10,7 +10,7 @@ $img_menu_bot = "menu-bot.png";
 $img_menu_bot2 = "menu-bot2.png";
 
 $support_name = "Joshua Wong<br>& Kevin To";
-$support_email = "joshua@josh-wong.net<br>kevinwto@hotmail.com";
+$support_email = "joshua@josh-wong.net";
 $support_domain = "https://wedding.josh-wong.net";
 
 ?>
