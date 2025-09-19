@@ -1,117 +1,101 @@
-(function ($) {
+document.addEventListener("DOMContentLoaded", function () {
     "use strict";
 
     // Navbar on scrolling
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 200) {
-            $('.navbar').fadeIn('slow').css('display', 'flex');
+    window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 200) {
+            navbar.style.display = "flex";
+            navbar.style.opacity = 1;
         } else {
-            $('.navbar').fadeOut('slow').css('display', 'none');
+            navbar.style.display = "none";
+            navbar.style.opacity = 0;
         }
     });
-
 
     // Smooth scrolling on the navbar links
-    $(".navbar-nav a").on('click', function (event) {
-        if (this.hash !== "") {
-            event.preventDefault();
-            
-            $('html, body').animate({
-                scrollTop: $(this.hash).offset().top - 45
-            }, 1500, 'easeInOutExpo');
-            
-            if ($(this).parents('.navbar-nav').length) {
-                $('.navbar-nav .active').removeClass('active');
-                $(this).closest('a').addClass('active');
-            }
-        }
-    });
+    document.querySelectorAll(".navbar-nav a").forEach(link => {
+        link.addEventListener("click", function (event) {
+            if (this.hash !== "") {
+                event.preventDefault();
+                const target = document.querySelector(this.hash);
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 45,
+                        behavior: "smooth"
+                    });
 
+                    // Active class handling
+                    document.querySelectorAll(".navbar-nav .active").forEach(el => el.classList.remove("active"));
+                    this.classList.add("active");
+                }
+            }
+        });
+    });
 
     // Modal Video
-    $(document).ready(function () {
-        var $videoSrc;
-        $('.btn-play').click(function () {
-            $videoSrc = $(this).data("src");
+    let videoSrc = "";
+    document.querySelectorAll(".btn-play").forEach(btn => {
+        btn.addEventListener("click", function () {
+            videoSrc = this.getAttribute("data-src");
         });
-        console.log($videoSrc);
-
-        $('#videoModal').on('shown.bs.modal', function (e) {
-            $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
-        })
-
-        $('#videoModal').on('hide.bs.modal', function (e) {
-            $("#video").attr('src', $videoSrc);
-        })
     });
 
+    const videoModal = document.getElementById("videoModal");
+    if (videoModal) {
+        videoModal.addEventListener("shown.bs.modal", function () {
+            document.getElementById("video").setAttribute(
+                "src",
+                videoSrc + "?autoplay=1&modestbranding=1&showinfo=0"
+            );
+        });
+        videoModal.addEventListener("hide.bs.modal", function () {
+            document.getElementById("video").setAttribute("src", videoSrc);
+        });
+    }
 
     // Scroll to Bottom
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
-            $('.scroll-to-bottom').fadeOut('slow');
-        } else {
-            $('.scroll-to-bottom').fadeIn('slow');
+    const scrollBottom = document.querySelector(".scroll-to-bottom");
+    window.addEventListener("scroll", function () {
+        if (scrollBottom) {
+            scrollBottom.style.display = window.scrollY > 100 ? "none" : "block";
         }
     });
 
+    // Portfolio isotope and filter (requires Isotope lib)
+    const portfolioContainer = document.querySelector(".portfolio-container");
+    if (portfolioContainer && typeof Isotope !== "undefined") {
+        const portfolioIsotope = new Isotope(portfolioContainer, {
+            itemSelector: ".portfolio-item",
+            layoutMode: "fitRows"
+        });
 
-    // Portfolio isotope and filter
-    var portfolioIsotope = $('.portfolio-container').isotope({
-        itemSelector: '.portfolio-item',
-        layoutMode: 'fitRows'
-    });
-    $('#portfolio-flters li').on('click', function () {
-        $("#portfolio-flters li").removeClass('active');
-        $(this).addClass('active');
+        document.querySelectorAll("#portfolio-flters li").forEach(filter => {
+            filter.addEventListener("click", function () {
+                document.querySelectorAll("#portfolio-flters li").forEach(el => el.classList.remove("active"));
+                this.classList.add("active");
+                portfolioIsotope.arrange({ filter: this.getAttribute("data-filter") });
+            });
+        });
+    }
 
-        portfolioIsotope.isotope({filter: $(this).data('filter')});
-    });
-    
-    
     // Back to top button
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 200) {
-            $('.back-to-top').fadeIn('slow');
-        } else {
-            $('.back-to-top').fadeOut('slow');
+    const backToTop = document.querySelector(".back-to-top");
+    window.addEventListener("scroll", function () {
+        if (backToTop) {
+            backToTop.style.display = window.scrollY > 200 ? "block" : "none";
         }
     });
-    $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
-        return false;
-    });
 
+    if (backToTop) {
+        backToTop.addEventListener("click", function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    }
 
-    // Gallery carousel
-    $(".gallery-carousel").owlCarousel({
-        autoplay: false,
-        smartSpeed: 1500,
-        dots: false,
-        loop: true,
-        nav : true,
-        navText : [
-            '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-            '<i class="fa fa-angle-right" aria-hidden="true"></i>'
-        ],
-        responsive: {
-            0:{
-                items:1
-            },
-            576:{
-                items:2
-            },
-            768:{
-                items:3
-            },
-            992:{
-                items:4
-            },
-            1200:{
-                items:5
-            }
-        }
-    });
-    
-})(jQuery);
+    // Gallery carousel (requires OwlCarousel replacement, e.g. Swiper)
+    // OwlCarousel is a jQuery plugin, so here’s a note:
+    // You’ll need to switch to a vanilla JS carousel (like SwiperJS).
+});
 
