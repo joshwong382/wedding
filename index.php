@@ -126,7 +126,7 @@ $support_domain = "https://wedding.josh-wong.net";
         <div class="container pb-5" style="max-width: 85%;">
             <div class="section-title before-color-override after-color-override position-relative text-center" style="margin-bottom: inherit;">
               <div class="row justify-content-center">
-                <img class="position-absolute" src="img/<?php echo $img_menu_cover ?>" style="object-fit: cover; max-height: 110%; max-width: 135%;">
+                <img class="position-absolute" src="img/<?php echo $img_menu_cover ?>" style="object-fit: cover; max-height: 110%; max-width: 135%;" loading="lazy">
                 <br><br><br><br>
               </div>
               <h1 class="font-secondary display-1 mb-5 mt-6">Menu</h1>
@@ -159,7 +159,7 @@ $support_domain = "https://wedding.josh-wong.net";
                 </div>
             </div>
             <div class="row justify-content-center mt-4">
-              <img src="img/<?php echo $img_menu_bot ?>" style="object-fit: cover; max-width: 100%; max-height: 30vh;">
+              <img src="img/<?php echo $img_menu_bot ?>" style="object-fit: cover; max-width: 100%; max-height: 30vh;" loading="lazy">
             </div>
             <div class="row justify-content-center">
               <div class="col-md-4 text-center text-md-center">
@@ -171,7 +171,7 @@ $support_domain = "https://wedding.josh-wong.net";
               </div>
             </div>
             <div class="row justify-content-center mt-4">
-              <img src="img/<?php echo $img_menu_bot2 ?>" style="object-fit: cover; max-width: 100%; max-height: 30vh;">
+              <img src="img/<?php echo $img_menu_bot2 ?>" style="object-fit: cover; max-width: 100%; max-height: 50vh;" loading="lazy">
             </div>
         </div>
     </div>
