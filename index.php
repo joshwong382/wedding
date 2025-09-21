@@ -130,7 +130,7 @@ $support_domain = "https://wedding.josh-wong.net";
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-10 text-center">
                     <p class="lead mb-4" style="color: #6c757d;">Capture your special moments with us!</p>
-                    <div class="d-inline-block border-top border-bottom py-3 px-4" style="border-color: #CA7A7F !important;">
+                    <div class="d-inline-block py-3 px-4" style="border-color: #CA7A7F !important;">
                         <a href="https://www.icloud.com/iclouddrive/09ciCDNoXxXBl85u7RPUFfs0g#Angel_&_Oscar" class="btn btn-lg text-white font-weight-bold" 
                            style="background-color: #CA7A7F; border-color: #CA7A7F; padding: 12px 30px; letter-spacing: 1px; text-decoration: none; border-radius: 25px; transition: all 0.3s ease;"
                            onmouseover="this.style.backgroundColor='#A32140'; this.style.borderColor='#A32140';"
