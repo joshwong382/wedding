@@ -120,6 +120,30 @@ $support_domain = "https://wedding.josh-wong.net";
       </div>
     </div>
     <!-- Carousel End -->
+    <!-- Photobooth Section Start -->
+    <div class="container-fluid py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+        <div class="container" style="max-width: 85%;">
+            <div class="section-title before-color-override after-color-override position-relative text-center">
+                <h1 class="font-secondary display-3 primary-text-color mb-4">Photo Booth</h1>
+                <i class="far fa-heart text-dark"></i>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10 text-center">
+                    <p class="lead mb-4" style="color: #6c757d;">Capture your special moments with us!</p>
+                    <div class="d-inline-block border-top border-bottom py-3 px-4" style="border-color: #CA7A7F !important;">
+                        <a href="https://www.icloud.com/iclouddrive/09ciCDNoXxXBl85u7RPUFfs0g#Angel_&_Oscar" class="btn btn-lg text-white font-weight-bold" 
+                           style="background-color: #CA7A7F; border-color: #CA7A7F; padding: 12px 30px; letter-spacing: 1px; text-decoration: none; border-radius: 25px; transition: all 0.3s ease;"
+                           onmouseover="this.style.backgroundColor='#A32140'; this.style.borderColor='#A32140';"
+                           onmouseout="this.style.backgroundColor='#CA7A7F'; this.style.borderColor='#CA7A7F';">
+                            VIEW PHOTOBOOTH PICTURES
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Photobooth Section End -->
+
 
     <!-- Menu Start -->
     <div class="container-fluid py-5" id="event">
