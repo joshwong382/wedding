@@ -1,6 +1,6 @@
 <?php
 
-$FF_PAGE_ENABLED = true;
+#$FF_PAGE_ENABLED = true;
 
 $name_groom = "Oscar";
 $name_bride = "Angel";
@@ -9,6 +9,7 @@ $img_carousel1_mobile = "mobilebg.jpg";
 $img_menu_cover = "menu-cover.png";
 $img_menu_bot = "menu-bot.png";
 $img_menu_bot2 = "menu-bot2.png";
+$photobooth_link = "https://drive.google.com/drive/folders/1TMm3cdVq_noncW5lWEeLt6zoTaMqcHI9?usp=sharing";
 
 $support_name = "Joshua Wong<br>& Kevin To";
 $support_email = "joshua@josh-wong.net";
@@ -131,7 +132,7 @@ $support_domain = "https://wedding.josh-wong.net";
                 <div class="col-lg-8 col-md-10 text-center">
                     <p class="lead mb-4" style="color: #6c757d;">Capture your special moments with us!</p>
                     <div class="d-inline-block py-3 px-4" style="border-color: #CA7A7F !important;">
-                        <a href="https://www.icloud.com/iclouddrive/09ciCDNoXxXBl85u7RPUFfs0g#Angel_&_Oscar" class="btn btn-lg text-white font-weight-bold" 
+		    <a href="<?php echo "$photobooth_link"; ?>" class="btn btn-lg text-white font-weight-bold" 
                            style="background-color: #CA7A7F; border-color: #CA7A7F; padding: 12px 30px; letter-spacing: 1px; text-decoration: none; border-radius: 25px; transition: all 0.3s ease;"
                            onmouseover="this.style.backgroundColor='#A32140'; this.style.borderColor='#A32140';"
                            onmouseout="this.style.backgroundColor='#CA7A7F'; this.style.borderColor='#CA7A7F';">
