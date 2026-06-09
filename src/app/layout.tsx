@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { siteConfig } from "@/content/site";
 import "./globals.css";
 
@@ -49,7 +50,7 @@ export default function RootLayout({
         "--color-heart-dark": theme.heartDark,
       } as React.CSSProperties}
     >
-      <body className="antialiased">{children}<Analytics /></body>
+      <body className="antialiased">{children}<Analytics /><SpeedInsights /></body>
     </html>
   );
 }
