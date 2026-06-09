@@ -54,7 +54,7 @@ export function SeatingSearch() {
                     key={`${m.tableId}-${m.name}`}
                     type="button"
                     onClick={() => setQuery(m.name)}
-                    className="block w-full cursor-pointer text-left hover:underline"
+                    className="block w-full cursor-pointer text-center hover:underline"
                   >
                     {m.name}
                   </button>
