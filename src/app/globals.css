@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #CA7A7F;
+  --color-accent: #A32140;
+  --font-display: "Amoresa Aged", cursive;
+  --font-body: "Montserrat", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+/* Hero entrance animations — staggered reveal on page load */
+@keyframes hero-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-element {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: hero-enter 1.5s ease-out forwards;
+}
+
+.hero-delay-1 {
+  animation-delay: 0.5s;
+}
+
+.hero-delay-2 {
+  animation-delay: 2.0s;
+}
+
+.hero-delay-3 {
+  animation-delay: 3.5s;
+}
+
+/* Input styling to match v1 */
+.starry-textbox {
+  border-radius: 14px;
+  border: 1px solid rgba(230, 198, 123, 0.25);
+  box-shadow: 0 0 0 3px rgba(230, 198, 123, 0.5);
+  opacity: 0.75;
+  transition: all 0.3s ease;
+}
+
+.starry-textbox:focus {
+  border-color: rgba(230, 198, 123, 0.65);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  opacity: 0.95;
+  transform: scale(1.05);
+}
+
+/* Section title heart with lines on either side */
+.section-heart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 0.75rem;
+}
+
+.section-heart::before,
+.section-heart::after {
+  content: "";
+  width: 100px;
+  height: 2px;
+  background: var(--color-primary);
+}
+
+.section-heart--white::before,
+.section-heart--white::after {
+  background: white;
+}
+
+/* Section title container */
+.section-title {
+  margin-bottom: 30px;
+}
+
+/* Shared display heading style for section titles */
+.section-heading {
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
