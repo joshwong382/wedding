@@ -78,7 +78,7 @@ export function SeatingSearch() {
 
       {/* Result card */}
       {state.stage === "result" && (
-        <div className="mt-4 rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm p-5 text-white">
+        <div className="mt-2 rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm p-5 text-white">
           <TableResult name={state.name} tableId={state.tableId} />
         </div>
       )}
@@ -97,9 +97,11 @@ function TableResult({ name, tableId }: { name: string; tableId: string }) {
   if (isHeadTable(tableId)) {
     return (
       <div className="text-center">
-        <p className="text-sm text-white/70">{name}</p>
-        <p className="mt-2 text-lg">
+        <p className="text-lg">
           You know where you&apos;re sitting&hellip; 💕
+        </p>
+        <p className="mt-1 text-xs text-white/70">
+          Hint: Your table doesn&apos;t have a number!
         </p>
       </div>
     );
