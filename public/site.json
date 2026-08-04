@@ -1,0 +1,50 @@
+{
+  "couple": {
+    "person1": "Daniel",
+    "person2": "Eugenia",
+    "moniker": "DUGE",
+    "date": "AUGUST 8, 2026"
+  },
+  "hero": {
+    "desktopImage": "/images/desktopbg.jpeg",
+    "mobileImage": "/images/mobilebg.jpeg",
+    "imagePosition": "45% 80%"
+  },
+  "sections": {
+    "photoBooth": {
+      "title": "Photo Booth",
+      "description": "Capture your special moments with us!",
+      "buttonText": "VIEW PHOTOBOOTH PICTURES",
+      "link": "https://drive.google.com/drive/folders/1TMm3cdVq_noncW5lWEeLt6zoTaMqcHI9?usp=sharing"
+    },
+    "menu": {
+      "title": "Menu"
+    },
+    "footer": {
+      "title": "Thank You"
+    },
+    "seatingSearch": {
+      "heading": "Find your table",
+      "inputLabel": "enter your name"
+    }
+  },
+  "meta": {
+    "title": "Daniel & Eugenia — We're Getting Married!",
+    "description": "Find your table and view the menu for the wedding of Daniel and Eugenia.",
+    "url": "https://wedding.josh-wong.net"
+  },
+  "credits": {
+    "builtBy": "Joshua Wong",
+    "email": "joshua@josh-wong.net"
+  },
+  "theme": {
+    "primary": "#CA7A7F",
+    "accent": "#A32140",
+    "heading": "#121F38",
+    "bodyMuted": "#818491",
+    "heartDark": "#343a40",
+    "heroOverlay": 0.3,
+    "sectionBgFrom": "#f8f9fa",
+    "sectionBgTo": "#e9ecef"
+  }
+}

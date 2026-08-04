@@ -1,62 +1,31 @@
-/**
- * Menu data — structured as courses with dishes.
- * Each course has a title and an array of items.
- * Each item has a bold name and separate description lines (matching v1 layout).
- */
+import menuData from "../../public/menu.json";
 
-export interface MenuItem {
-  readonly name: string;
-  readonly lines: readonly string[];
+export interface Course {
+  readonly order: number | null;
+  readonly en: string;
+  readonly zh: string;
 }
 
-export interface MenuCourse {
+export interface MenuSection {
+  readonly label: string;
+  readonly courses: readonly Course[];
+}
+
+export interface LateNightItem {
+  readonly label: string;
+  readonly flavour: string;
+}
+
+export interface LateNight {
   readonly title: string;
-  readonly items: readonly MenuItem[];
+  readonly image: string;
+  readonly items: readonly LateNightItem[];
 }
 
-export const menuCourses: readonly MenuCourse[] = [
-  {
-    title: "First Course",
-    items: [
-      {
-        name: "Mixed Greens Cucumber Bouquet",
-        lines: [
-          "Candied Pecans, Goat's Cheese",
-          "Heirloom Tomatoes, Balsamic Vinaigrette",
-        ],
-      },
-    ],
-  },
-  {
-    title: "Second Course",
-    items: [
-      {
-        name: "8 oz. Boneless Red Wine Braised Beef Short Ribs",
-        lines: [
-          "Roasted Garlic Potato Pave",
-          "Fresh Snipped Carrot & Asparagus",
-        ],
-      },
-    ],
-  },
-  {
-    title: "Third Course",
-    items: [
-      {
-        name: "Warm Apple Blossom",
-        lines: ["Butterscotch Drizzle", "French Vanilla Ice Cream"],
-      },
-    ],
-  },
-  {
-    title: "Late Night Station",
-    items: [
-      {
-        name: "EXTREME POUTINE STATION",
-        lines: [
-          "Yukon Gold & Sweet Potato Fries, Pulled Pork, Bacon Bits, Scallions, Sour Cream, Shredded Cheddar Cheese, Fresh Cheese Curds, Sautéed Mushrooms, Diced Tomatoes, Jalapeno Peppers, Home-Style Beef Gravy & Cheese Sauce served in Authentic Take-Away Containers",
-        ],
-      },
-    ],
-  },
-] as const;
+export interface MenuData {
+  readonly regular: MenuSection;
+  readonly vegetarian: MenuSection;
+  readonly lateNight: LateNight;
+}
+
+export const menu: MenuData = menuData as MenuData;

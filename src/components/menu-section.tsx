@@ -1,112 +1,92 @@
-/* eslint-disable @next/next/no-img-element */
-import { menuCourses, type MenuCourse } from "@/content/menu";
+"use client";
+
+import { useState } from "react";
+import { menu, type Course } from "@/content/menu";
 import { siteConfig } from "@/content/site";
 import { HeartIcon } from "./heart-icon";
 
-/**
- * Text alignment per column on desktop (md+):
- * col 0 = right-aligned, col 1 = centered, col 2 = left-aligned.
- * All are centered on mobile.
- */
-const ALIGN_CLASSES: readonly [string, string, string] = [
-  "text-center md:text-right",
-  "text-center",
-  "text-center md:text-left",
-];
+type MenuKey = "regular" | "vegetarian";
 
-function CourseItems({ course }: { course: MenuCourse }) {
+function CourseRow({ course }: { course: Course }) {
   return (
-    <>
-      {course.items.map((item) => (
-        <div key={item.name}>
-          <p className="mb-2 text-[var(--color-heading)]">
-            <b>{item.name}</b>
-          </p>
-          {item.lines.map((line) => (
-            <p key={line} className="mb-2 text-[var(--color-body-muted)]">
-              {line}
-            </p>
-          ))}
-        </div>
-      ))}
-    </>
+    <li className="flex gap-3 py-3 border-b border-gray-100 last:border-0">
+      <span className="w-6 shrink-0 text-right text-sm font-semibold text-[var(--color-primary)] tabular-nums">
+        {course.order ?? ""}
+      </span>
+      <div className="min-w-0">
+        <p className="text-[var(--color-heading)] font-medium leading-snug">
+          {course.en}
+        </p>
+        <p className="text-[var(--color-body-muted)] text-sm leading-snug mt-0.5">
+          {course.zh}
+        </p>
+      </div>
+    </li>
   );
 }
 
 export function MenuSection() {
-  const mainCourses = menuCourses.filter((c) => c.title !== "Late Night Station");
-  const lateNight = menuCourses.filter((c) => c.title === "Late Night Station");
+  const [activeTab, setActiveTab] = useState<MenuKey>("regular");
+  const activeMenu = menu[activeTab];
 
   return (
     <section id="menu" className="py-12">
-      <div className="mx-auto max-w-[85%] pb-12">
-        {/* Section title with decorative cover image */}
-        <div className="section-title relative text-center" style={{ marginBottom: "inherit" }}>
-          <div className="flex justify-center">
-            <img
-              src="/images/menu-cover.png"
-              alt=""
-              className="absolute top-0 left-1/2 -translate-x-1/2"
-              style={{ maxHeight: "120%", maxWidth: "135%", objectFit: "cover" }}
-              loading="lazy"
-            />
-            <div className="h-8" />
-          </div>
-          <h1
-            className="section-heading font-display relative mb-4 text-[var(--color-heading)]"
-            style={{ marginTop: "5rem" }}
-          >
+      <div className="mx-auto max-w-lg px-4">
+        {/* Section heading */}
+        <div className="text-center mb-8">
+          <h1 className="font-display text-4xl text-[var(--color-heading)] mb-2">
             {siteConfig.sections.menu.title}
           </h1>
-          <div className="section-heart relative">
+          <div className="flex justify-center">
             <HeartIcon color="var(--color-heart-dark)" />
           </div>
         </div>
 
-        {/* Three courses in a row */}
-        <div className="mt-0 grid grid-cols-1 md:grid-cols-3">
-          {mainCourses.map((course, i) => (
-            <div key={course.title} className={ALIGN_CLASSES[i as 0 | 1 | 2]}>
-              <h4
-                className="mt-12 mb-2 font-display text-2xl text-[var(--color-heading)] underline"
-              >
-                {course.title}
-              </h4>
-              <CourseItems course={course} />
-            </div>
+        {/* Tabs */}
+        <div className="flex justify-center gap-2 mb-6">
+          {(["regular", "vegetarian"] as const).map((key) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setActiveTab(key)}
+              className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+                activeTab === key
+                  ? "bg-[var(--color-primary)] text-white shadow-sm"
+                  : "bg-gray-100 text-[var(--color-body-muted)] hover:bg-gray-200"
+              }`}
+            >
+              {menu[key].label}
+            </button>
           ))}
         </div>
 
-        {/* Decorative image */}
-        <div className="mt-4 flex justify-center">
+        {/* Course list */}
+        <ol className="list-none p-0 m-0">
+          {activeMenu.courses.map((course, i) => (
+            <CourseRow key={`${activeTab}-${i}`} course={course} />
+          ))}
+        </ol>
+
+        {/* Late Night Snack */}
+        <div className="mt-10 text-center">
+          <h2 className="font-display text-2xl text-[var(--color-heading)] mb-4">
+            {menu.lateNight.title}
+          </h2>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/menu-bot.png"
-            alt=""
-            className="max-h-[30vh] max-w-full object-cover"
+            src={menu.lateNight.image}
+            alt="Enzi Ice Cream"
+            className="mx-auto mb-4 max-h-64 rounded-xl object-cover shadow-md"
             loading="lazy"
           />
-        </div>
-
-        {/* Late Night Station */}
-        {lateNight.map((course) => (
-          <div key={course.title} className="text-center">
-            <h4
-              className="mt-4 mb-2 font-display text-2xl text-[var(--color-heading)] underline"
-            >
-              {course.title}
-            </h4>
-            <CourseItems course={course} />
+          <div className="space-y-1">
+            {menu.lateNight.items.map((item) => (
+              <p key={item.label} className="text-[var(--color-heading)]">
+                <span className="font-semibold">{item.label}:</span>{" "}
+                <span className="text-[var(--color-body-muted)]">{item.flavour}</span>
+              </p>
+            ))}
           </div>
-        ))}
-
-        {/* Bottom decorative image */}
-        <div className="mt-4 flex justify-center">
-          <img
-            src="/images/menu-bot2.png"
-            alt=""
-            className="max-h-[50vh] max-w-full object-cover"
-            loading="lazy"
-          />
         </div>
       </div>
     </section>
