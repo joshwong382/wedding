@@ -11,14 +11,60 @@
     "imagePosition": "45% 80%"
   },
   "sections": {
-    "photoBooth": {
-      "title": "Photo Booth",
-      "description": "Capture your special moments with us!",
-      "buttonText": "VIEW PHOTOBOOTH PICTURES",
-      "link": "https://drive.google.com/drive/folders/1TMm3cdVq_noncW5lWEeLt6zoTaMqcHI9?usp=sharing"
+    "devo": {
+      "title": "Devotional",
+      "date": "🗓️ August 8, 2026",
+      "subtitle": "Love, Love, Love, Love",
+      "iceBreaker": {
+        "heading": "🧊🔨 Ice-breaker",
+        "question": "What are Daniel and Eugenia's love languages for both giving and receiving love?",
+        "note": "5 Love Languages: Words of Affirmation, Acts of Service, Receiving Gifts, Quality Time, Physical Touch"
+      },
+      "expressions": {
+        "heading": "4 Biblical Expressions of Love",
+        "items": [
+          {
+            "term": "Philia",
+            "greek": "φιλία",
+            "text": "Brotherly friendship between two friends Daniel and Eugenia, as they spend Monday nights playing basketball together"
+          },
+          {
+            "term": "Eros",
+            "greek": "ἔρως",
+            "text": "Romantic love between Daniel and Eugenia as we celebrate tonight as they are united in marriage"
+          },
+          {
+            "term": "Storge",
+            "greek": "στοργή",
+            "text": "Familial love shared among family members: Daniel, (Daniel's mom), (Daniel's dad), Diane, Joshua, Eugenia, (Eugenia's mom), (Eugenia's dad), (Eugenia's brother - Marco)"
+          },
+          {
+            "term": "Agape",
+            "greek": "ἀγάπη",
+            "text": "The unconditional, sacrificial, selfless love of God. The love Daniel and Eugenia share for everyone here tonight is a reflection of God's unconditional love for them first."
+          }
+        ]
+      },
+      "scripture": {
+        "heading": "📖 1 John 4:10-12; 19",
+        "text": "This is love: not that we loved God, but that he loved us and sent his Son as an atoning sacrifice for our sins. Dear friends, since God so loved us, we also ought to love one another. No one has ever seen God; but if we love one another, God lives in us and his love is made complete in us. … We love because he first loved us."
+      },
+      "insight": {
+        "heading": "💭 Some Insight",
+        "text": "The 4 biblical expressions of love are woven in Daniel and Eugenia's story but it reminds us that their love is ultimately rooted in the love God has for us, for when he died on the cross for our sins."
+      },
+      "discussion": {
+        "heading": "🗣️ Discussion (pick either or)",
+        "questions": [
+          "When you hear that God loves you unconditionally and sent Jesus to die for you, what thoughts or questions come to mind?",
+          "What is one way someone has shown you unconditional love? How did it impact you?",
+          "Which of these four types of love have you experienced most strongly in your life?"
+        ]
+      }
     },
     "menu": {
-      "title": "Menu"
+      "title": "Menu",
+      "titleZh": "菜單"
     },
     "footer": {
       "title": "Thank You"
@@ -43,7 +89,8 @@
     "heading": "#121F38",
     "bodyMuted": "#818491",
     "heartDark": "#343a40",
-    "heroOverlay": 0.3,
+    "verse": "#2A4B8D",
+    "heroOverlay": 0.5,
     "sectionBgFrom": "#f8f9fa",
     "sectionBgTo": "#e9ecef"
   }

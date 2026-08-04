@@ -9,7 +9,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[110vh] items-center justify-center overflow-hidden bg-neutral-900"
+      className="relative flex min-h-svh items-start justify-center overflow-hidden bg-neutral-900 pt-28 pb-16 sm:items-center sm:pt-0 sm:pb-0"
     >
       <picture className="absolute inset-0">
         <source srcSet={hero.mobileImage} media="(max-width: 768px)" />
@@ -40,7 +40,7 @@ export function Hero() {
 
         {/* Couple names */}
         <p
-          className="hero-element hero-delay-1 mt-2 text-3xl sm:text-5xl md:text-6xl"
+          className="hero-element hero-delay-1 mt-1 text-3xl sm:mt-2 sm:text-5xl md:text-6xl"
           style={{ ...heroTypography.names, animationDelay: "0.8s" }}
         >
           {person1} & {person2}
@@ -48,7 +48,7 @@ export function Hero() {
 
         {/* Date */}
         <p
-          className="hero-element hero-delay-1 mt-6 text-base sm:text-lg md:text-xl"
+          className="hero-element hero-delay-1 mt-3 text-xs sm:mt-6 sm:text-lg md:text-xl"
           style={{ ...heroTypography.date, animationDelay: "1.1s" }}
         >
           {date}

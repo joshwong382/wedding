@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { menu, type Course } from "@/content/menu";
 import { siteConfig } from "@/content/site";
-import { HeartIcon } from "./heart-icon";
 
 type MenuKey = "regular" | "vegetarian";
 
@@ -34,12 +33,12 @@ export function MenuSection() {
       <div className="mx-auto max-w-lg px-4">
         {/* Section heading */}
         <div className="text-center mb-8">
-          <h1 className="font-display text-4xl text-[var(--color-heading)] mb-2">
+          <h1 className="font-display text-4xl text-[var(--color-heading)]">
             {siteConfig.sections.menu.title}
           </h1>
-          <div className="flex justify-center">
-            <HeartIcon color="var(--color-heart-dark)" />
-          </div>
+          <p className="text-[var(--color-body-muted)] text-sm mt-0.5">
+            {siteConfig.sections.menu.titleZh}
+          </p>
         </div>
 
         {/* Tabs */}
@@ -68,25 +67,23 @@ export function MenuSection() {
         </ol>
 
         {/* Late Night Snack */}
-        <div className="mt-10 text-center">
-          <h2 className="font-display text-2xl text-[var(--color-heading)] mb-4">
-            {menu.lateNight.title}
-          </h2>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={menu.lateNight.image}
-            alt="Enzi Ice Cream"
-            className="mx-auto mb-4 max-h-64 rounded-xl object-cover shadow-md"
-            loading="lazy"
-          />
-          <div className="space-y-1">
-            {menu.lateNight.items.map((item) => (
-              <p key={item.label} className="text-[var(--color-heading)]">
-                <span className="font-semibold">{item.label}:</span>{" "}
-                <span className="text-[var(--color-body-muted)]">{item.flavour}</span>
-              </p>
-            ))}
+        <div className="mt-10">
+          <div className="text-center mb-4">
+            <h2 className="font-display text-2xl text-[var(--color-heading)]">
+              {menu.lateNight.title}
+            </h2>
+            <p className="text-[var(--color-body-muted)] text-sm mt-0.5">
+              {menu.lateNight.titleZh}
+            </p>
+            <p className="text-[var(--color-heading)] font-medium mt-3">
+              {menu.lateNight.subtitle}
+            </p>
           </div>
+          <ol className="list-none p-0 m-0">
+            {menu.lateNight.courses.map((course, i) => (
+              <CourseRow key={`lateNight-${i}`} course={course} />
+            ))}
+          </ol>
         </div>
       </div>
     </section>

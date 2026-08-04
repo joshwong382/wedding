@@ -2,12 +2,14 @@
 
 export function SeatingChartImage() {
   return (
-    <section className="py-16">
-      <div className="mx-auto max-w-[85%] text-center">
+    <section className="pb-16">
+      <div className="mx-auto max-w-[95%] text-center sm:max-w-[85%]">
         <img
-          src="/images/seating-chart-full.png"
-          alt="Full seating chart"
-          className="mx-auto max-w-full object-contain"
+          src="/images/seating-chart.png"
+          alt="Full seating chart listing every table and guest"
+          className="mx-auto h-auto w-full max-w-3xl object-contain"
+          width={1836}
+          height={2376}
           loading="lazy"
         />
       </div>
