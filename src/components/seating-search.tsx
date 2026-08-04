@@ -107,13 +107,21 @@ function TableResult({ name, tableId }: { name: string; tableId: string }) {
 
   return (
     <div className="text-center">
-      <p className="text-sm text-white/70">{name}</p>
-      <p className="mt-2 text-3xl font-bold">{formatTableLabel(tableId)}</p>
+      <p className="text-3xl font-bold">{formatTableLabel(tableId)}</p>
       <div className="mt-3">
         <p className="text-xs text-white/50 mb-1">your tablemates</p>
         <div className="columns-2 gap-x-4 text-sm text-white/80">
-          {guests.filter((g) => g !== name).map((guest) => (
-            <p key={guest} className="break-inside-avoid py-0.5">{guest}</p>
+          {guests.map((guest) => (
+            <p
+              key={guest}
+              className={`break-inside-avoid py-0.5 ${
+                guest === name
+                  ? "font-semibold text-white underline underline-offset-4"
+                  : ""
+              }`}
+            >
+              {guest}
+            </p>
           ))}
         </div>
       </div>
