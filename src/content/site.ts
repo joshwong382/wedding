@@ -5,8 +5,8 @@
 
 export const siteConfig = {
   couple: {
-    person1: "Angel",
-    person2: "Oscar",
+    person1: "Daniel",
+    person2: "Eugenia",
   },
 
   /** Hero section background images */
@@ -38,9 +38,9 @@ export const siteConfig = {
   },
 
   meta: {
-    title: "Angel & Oscar — We're Getting Married!",
+    title: "Daniel & Eugenia — We're Getting Married!",
     description:
-      "Find your table and view the menu for the wedding of Angel and Oscar.",
+      "Find your table and view the menu for the wedding of Daniel and Eugenia.",
     url: "https://wedding.josh-wong.net",
   },
 
