@@ -1,6 +1,6 @@
 {
   "regular": {
-    "label": "🦀 Regular",
+    "label": "🦀 Regular 葷菜",
     "courses": [
       { "order": 1, "en": "Suckling Pig (Half)", "zh": "大紅乳猪 （半隻）" },
       { "order": 2, "en": "Braised Stuffed Crab Claws", "zh": "百花釀蟹钳 （十隻）" },
@@ -18,7 +18,7 @@
     ]
   },
   "vegetarian": {
-    "label": "🥦 Vegetarian",
+    "label": "🥦 Vegetarian 素菜",
     "courses": [
       { "order": 1, "en": "Pan Fried Bean Curd Roll", "zh": "香煎腐皮卷" },
       { "order": 2, "en": "Braised Chinese Mushroom With Tofu", "zh": "冬菇扒玉子豆腐" },
@@ -34,8 +34,11 @@
   },
   "lateNight": {
     "title": "Late Night Snack",
-    "image": "/images/enzi-ice-cream.jpg",
-    "items": [
+    "titleZh": "宵夜",
+    "subtitle": "Enzi Ice Cream",
+    "courses": [
+      { "order": null, "en": "His: Black Sesame & Cookie Crumble", "zh": "新郎：黑芝麻及曲奇碎" },
+      { "order": null, "en": "Hers: Black Sesame & Hojicha", "zh": "新娘：黑芝麻及焙茶" }
     ]
   }
 }

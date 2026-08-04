@@ -56,6 +56,7 @@ export default function RootLayout({
         "--color-heading": theme.heading,
         "--color-body-muted": theme.bodyMuted,
         "--color-heart-dark": theme.heartDark,
+        "--color-verse": theme.verse,
       } as React.CSSProperties}
     >
       <body className="antialiased">{children}<Analytics /><SpeedInsights /></body>

@@ -1,5 +1,4 @@
 import { siteConfig } from "@/content/site";
-import { HeartIcon } from "./heart-icon";
 
 export function Footer() {
   const { credits, meta } = siteConfig;
@@ -9,12 +8,9 @@ export function Footer() {
       <div className="bg-black/10 py-16">
         <div className="mx-auto max-w-3xl px-4 text-center">
           <div className="section-title relative">
-            <h1 className="section-heading font-display mb-4 text-white">
+            <h1 className="section-heading font-display text-white">
               {siteConfig.sections.footer.title}
             </h1>
-            <div className="section-heart section-heart--white">
-              <HeartIcon color="white" />
-            </div>
           </div>
 
           <p className="mt-6">

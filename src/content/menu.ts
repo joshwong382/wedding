@@ -11,15 +11,11 @@ export interface MenuSection {
   readonly courses: readonly Course[];
 }
 
-export interface LateNightItem {
-  readonly label: string;
-  readonly flavour: string;
-}
-
 export interface LateNight {
   readonly title: string;
-  readonly image: string;
-  readonly items: readonly LateNightItem[];
+  readonly titleZh: string;
+  readonly subtitle: string;
+  readonly courses: readonly Course[];
 }
 
 export interface MenuData {
