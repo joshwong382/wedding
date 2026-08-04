@@ -79,6 +79,13 @@ export function MenuSection() {
               {menu.lateNight.subtitle}
             </p>
           </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/enzi-ice-cream.png"
+            alt="Enzi Ice Cream"
+            className="mx-auto mb-6 max-h-64 rounded-xl object-cover shadow-md"
+            loading="lazy"
+          />
           <ol className="list-none p-0 m-0">
             {menu.lateNight.courses.map((course, i) => (
               <CourseRow key={`lateNight-${i}`} course={course} />
