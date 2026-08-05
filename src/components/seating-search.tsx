@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useDeferredValue } from "react";
+import { useState, useEffect, useDeferredValue } from "react";
 import { seatingData } from "@/content/seating";
 import { siteConfig } from "@/content/site";
 import {
@@ -15,11 +15,32 @@ type SearchState =
   | { stage: "searching" }
   | { stage: "result"; name: string; tableId: string };
 
+const STORAGE_KEY = "seating-guest";
+
+function loadSavedGuest(): SearchState {
+  if (typeof window === "undefined") return { stage: "idle" };
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return { stage: "idle" };
+  try {
+    const { name, tableId } = JSON.parse(saved);
+    if (name && tableId) return { stage: "result", name, tableId };
+  } catch { /* ignore corrupt data */ }
+  return { stage: "idle" };
+}
+
 export function SeatingSearch() {
   const [query, setQuery] = useState("");
   const [state, setState] = useState<SearchState>({ stage: "idle" });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const deferredQuery = useDeferredValue(query);
+
+  useEffect(() => {
+    const saved = loadSavedGuest();
+    if (saved.stage === "result") {
+      setState(saved);
+      setQuery(saved.name);
+    }
+  }, []);
 
   const matches = state.stage !== "result"
     ? findGuestMatches(seatingData, deferredQuery)
@@ -31,6 +52,7 @@ export function SeatingSearch() {
     setQuery(name);
     setDropdownOpen(false);
     setState({ stage: "result", name, tableId });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, tableId }));
   }
 
   return (
