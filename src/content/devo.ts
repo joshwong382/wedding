@@ -31,7 +31,10 @@ export interface DevoContent {
   };
   readonly discussion: {
     readonly heading: string;
-    readonly questions: readonly string[];
+    readonly questions: readonly {
+      readonly text: string;
+      readonly subs: readonly string[];
+    }[];
   };
 }
 

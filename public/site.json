@@ -13,7 +13,7 @@
   "sections": {
     "devo": {
       "en": {
-        "label": "English",
+        "label": "🇨🇦 English",
         "title": "Devotional",
         "subtitle": "Love, Love, Love, Love",
         "iceBreaker": {
@@ -57,20 +57,27 @@
         "discussion": {
           "heading": "🗣️ Discussion (pick either or)",
           "questions": [
-            "When you hear that God loves you unconditionally and sent Jesus to die for you, what thoughts or questions come to mind?",
-            "What is one way someone has shown you unconditional love? How did it impact you?",
-            "Which of these four types of love have you experienced most strongly in your life?"
+            {
+              "text": "When you hear that God loves you unconditionally and sent Jesus to die for you, what thoughts or questions come to mind?",
+              "subs": [
+                "What is one way someone has shown you unconditional love? How did it impact you?"
+              ]
+            },
+            {
+              "text": "Which of these four types of love have you experienced most strongly in your life?",
+              "subs": []
+            }
           ]
         }
       },
       "zh": {
-        "label": "中文",
+        "label": "🇨🇳 中文",
         "title": "靈修",
         "subtitle": "愛、愛、愛、愛",
         "iceBreaker": {
           "heading": "🧊🔨 破冰問題",
           "question": "Daniel 和 Eugenia 在付出與接受愛的時候，各自的愛之語言是什麼？",
-          "note": "五種愛之語：肯定的言詞、精心的時刻、接受禮物、服務的行動、身體的接觸"
+          "note": "五種愛之語：肯定的言詞、服務的行動、接受禮物、高品質陪伴、身體的接觸"
         },
         "expressions": {
           "heading": "聖經中四種愛的表達",
@@ -88,7 +95,7 @@
             {
               "term": "Storge",
               "greek": "στοργή",
-              "text": "家人之間的親情：Daniel、（Daniel 的媽媽）、（Daniel 的爸爸）、Diane、Joshua、Eugenia、（Eugenia 的媽媽）、（Eugenia 的爸爸）、（Eugenia 的弟弟 — Marco）。"
+              "text": "家人之間的親情：Daniel、（Daniel 的媽媽）、（Daniel 的爸爸）、Diane、Joshua、Eugenia、（Eugenia 的媽媽）、（Eugenia 的爸爸）、（Eugenia 的哥哥 — Marco）。"
             },
             {
               "term": "Agape",
@@ -99,18 +106,25 @@
         },
         "scripture": {
           "heading": "📖 約翰一書 4:10-12；19",
-          "text": "不是我們愛神，乃是神愛我們，差他的兒子為我們的罪作了挽回祭，這就是愛了。親愛的弟兄啊，神既是這樣愛我們，我們也當彼此相愛。從來沒有人見過神，我們若彼此相愛，神就住在我們裏面，愛他的心在我們裏面得以完全了。……我們愛，因為神先愛我們。"
+          "text": "不是我們愛神，乃是神愛我們，差祂的兒子為我們的罪作了挽回祭，這就是愛了。親愛的弟兄啊，神既是這樣愛我們，我們也當彼此相愛。從來沒有人見過神，我們若彼此相愛，神就住在我們裏面，愛祂的心在我們裏面得以完全了。……我們愛，因為神先愛我們。"
         },
         "insight": {
           "heading": "💭 一點默想",
-          "text": "這四種聖經中愛的表達交織在 Daniel 與 Eugenia 的故事裡，但這也提醒我們：他們的愛最終是根源於神對我們的愛——因他為我們的罪死在十字架上。"
+          "text": "這四種聖經中愛的表達交織在 Daniel 與 Eugenia 的故事裡，但這也提醒我們：他們的愛最終是根源於神對我們的愛——因祂為我們的罪死在十字架上。"
         },
         "discussion": {
           "heading": "🗣️ 討論（任選其一）",
           "questions": [
-            "當你聽見神無條件地愛你，並差耶穌為你而死，你心中浮現什麼想法或疑問？",
-            "曾經有誰以無條件的愛待你？那件事如何影響了你？",
-            "這四種愛之中，哪一種是你生命中體會最深的？"
+            {
+              "text": "當你聽見神無條件地愛你，並差耶穌為你而死，你心中浮現什麼想法或疑問？",
+              "subs": [
+                "曾經有誰以無條件的愛待你？那件事如何影響了你？"
+              ]
+            },
+            {
+              "text": "這四種愛之中，哪一種是你生命中體會最深的？",
+              "subs": []
+            }
           ]
         }
       }
@@ -133,7 +147,7 @@
     "url": "https://wedding.josh-wong.net"
   },
   "credits": {
-    "builtBy": "Joshua Wong",
+    "builtBy": "Joshua Wong & Daniel Ye",
     "email": "joshua@josh-wong.net"
   },
   "theme": {

@@ -16,7 +16,7 @@ function CourseRow({ course }: { course: Course }) {
         <p className="text-[var(--color-heading)] font-medium leading-snug">
           {course.en}
         </p>
-        <p className="text-[var(--color-body-muted)] text-sm leading-snug mt-0.5">
+        <p className="text-[var(--color-body-muted)] text-sm leading-snug mt-1.5">
           {course.zh}
         </p>
       </div>
@@ -36,7 +36,7 @@ export function MenuSection() {
           <h1 className="font-display text-4xl text-[var(--color-heading)]">
             {siteConfig.sections.menu.title}
           </h1>
-          <p className="text-[var(--color-body-muted)] text-sm mt-0.5">
+          <p className="text-[var(--color-body-muted)] text-sm mt-1.5">
             {siteConfig.sections.menu.titleZh}
           </p>
         </div>
@@ -72,23 +72,30 @@ export function MenuSection() {
             <h2 className="font-display text-2xl text-[var(--color-heading)]">
               {menu.lateNight.title}
             </h2>
-            <p className="text-[var(--color-body-muted)] text-sm mt-0.5">
+            <p className="text-[var(--color-body-muted)] text-sm mt-1.5">
               {menu.lateNight.titleZh}
             </p>
             <p className="text-[var(--color-heading)] font-medium mt-3">
               {menu.lateNight.subtitle}
             </p>
           </div>
-          <ol className="list-none p-0 m-0">
+          <ol className="grid grid-cols-2 gap-x-4 gap-y-3 list-none p-0 m-0 text-center">
             {menu.lateNight.courses.map((course, i) => (
-              <CourseRow key={`lateNight-${i}`} course={course} />
+              <li key={`lateNight-${i}`}>
+                <p className="text-[var(--color-heading)] font-medium leading-snug">
+                  {course.en}
+                </p>
+                <p className="text-[var(--color-body-muted)] text-sm leading-snug mt-1.5">
+                  {course.zh}
+                </p>
+              </li>
             ))}
           </ol>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/enzi-ice-cream.png"
             alt="Enzi Ice Cream"
-            className="mx-auto mb-6 max-h-64"
+            className="mx-auto mt-6 mb-6 max-h-64"
             loading="lazy"
           />
         </div>
