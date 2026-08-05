@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { devo, type DevoLang } from "@/content/devo";
+import { siteConfig } from "@/content/site";
 
 function Block({
   heading,
@@ -21,18 +22,25 @@ function Block({
 export function Devo() {
   const [lang, setLang] = useState<DevoLang>("en");
   const content = devo[lang];
+  const { theme } = siteConfig;
 
   return (
-    <section id="devo" className="py-12">
+    <section
+      id="devo"
+      className="border-y border-black/10 pt-14 pb-12"
+      style={{
+        background: `linear-gradient(135deg, ${theme.sectionBgFrom} 0%, ${theme.sectionBgTo} 100%)`,
+      }}
+    >
       <div className="mx-auto max-w-lg px-4">
-        {/* Section heading */}
+        {/* Section heading — bilingual, independent of the language toggle */}
         <div className="text-center">
           <h1 className="font-display text-4xl text-[var(--color-heading)]">
-            {content.title}
+            {devo.en.title}
           </h1>
-          <h2 className="font-display text-2xl text-[var(--color-heading)] mt-4">
-            {content.subtitle}
-          </h2>
+          <p className="text-[var(--color-body-muted)] text-sm mt-1.5">
+            {devo.zh.title}
+          </p>
         </div>
 
         {/* Language tabs */}
@@ -46,13 +54,17 @@ export function Devo() {
               className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
                 lang === key
                   ? "bg-[var(--color-primary)] text-white shadow-sm"
-                  : "bg-gray-100 text-[var(--color-body-muted)] hover:bg-gray-200"
+                  : "bg-white/70 text-[var(--color-body-muted)] hover:bg-white"
               }`}
             >
               {devo[key].label}
             </button>
           ))}
         </div>
+
+        <h2 className="text-2xl font-semibold text-[var(--color-heading)] mt-6">
+          {content.subtitle}
+        </h2>
 
         <Block heading={content.iceBreaker.heading}>
           <p className="text-[var(--color-heading)] leading-relaxed">
@@ -68,7 +80,7 @@ export function Devo() {
             {content.expressions.items.map((item) => (
               <li
                 key={item.term}
-                className="py-2 border-b border-gray-100 last:border-0"
+                className="py-2 border-b border-black/10 last:border-0"
               >
                 <p className="text-[var(--color-heading)] leading-relaxed">
                   <span className="font-semibold">{item.term}</span>{" "}
@@ -97,8 +109,18 @@ export function Devo() {
         <Block heading={content.discussion.heading}>
           <ul className="list-disc pl-5 space-y-2 marker:text-[var(--color-primary)]">
             {content.discussion.questions.map((q) => (
-              <li key={q} className="text-[var(--color-heading)] leading-relaxed">
-                {q}
+              <li
+                key={q.text}
+                className="text-[var(--color-heading)] leading-relaxed"
+              >
+                {q.text}
+                {q.subs.length > 0 && (
+                  <ul className="list-[circle] pl-5 mt-2 space-y-2 marker:text-[var(--color-primary)]">
+                    {q.subs.map((s) => (
+                      <li key={s}>{s}</li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>

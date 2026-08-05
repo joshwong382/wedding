@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Short viewports — mainly phones held in landscape, where the hero
+   lockup would otherwise fill the screen and push the search off it. */
+@custom-variant short (@media (max-height: 500px));
+
 @theme {
   --color-primary: #CA7A7F;
   --color-accent: #A32140;

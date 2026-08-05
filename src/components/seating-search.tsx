@@ -60,7 +60,7 @@ export function SeatingSearch() {
         />
 
         {showDropdown && (
-          <ul className="absolute left-0 right-0 z-20 mt-1 max-h-48 overflow-y-auto rounded-lg border border-white/20 bg-black/90 backdrop-blur-sm">
+          <ul className="absolute left-0 right-0 z-20 mt-1 max-h-48 short:max-h-32 overflow-y-auto rounded-lg border border-white/20 bg-black/90 backdrop-blur-sm">
             {matches.map((m) => (
               <li key={`${m.tableId}-${m.name}`}>
                 <button
