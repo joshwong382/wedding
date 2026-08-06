@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useDeferredValue } from "react";
+import { useState, useDeferredValue } from "react";
 import { seatingData } from "@/content/seating";
 import { siteConfig } from "@/content/site";
 import {
@@ -9,6 +9,8 @@ import {
   formatTableLabel,
   isHeadTable,
 } from "@/lib/seating-search";
+import { BottomSheet } from "@/components/bottom-sheet";
+import { SeatingMap } from "@/components/seating-map";
 
 type SearchState =
   | { stage: "idle" }
@@ -29,18 +31,14 @@ function loadSavedGuest(): SearchState {
 }
 
 export function SeatingSearch() {
-  const [query, setQuery] = useState("");
-  const [state, setState] = useState<SearchState>({ stage: "idle" });
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const deferredQuery = useDeferredValue(query);
-
-  useEffect(() => {
+  const [query, setQuery] = useState(() => {
     const saved = loadSavedGuest();
-    if (saved.stage === "result") {
-      setState(saved);
-      setQuery(saved.name);
-    }
-  }, []);
+    return saved.stage === "result" ? saved.name : "";
+  });
+  const [state, setState] = useState<SearchState>(loadSavedGuest);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
+  const deferredQuery = useDeferredValue(query);
 
   const matches = state.stage !== "result"
     ? findGuestMatches(seatingData, deferredQuery)
@@ -102,6 +100,17 @@ export function SeatingSearch() {
       {state.stage === "result" && (
         <div className="mt-2 rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm p-5 text-white">
           <TableResult name={state.name} tableId={state.tableId} />
+          <button
+            type="button"
+            onClick={() => setMapOpen(true)}
+            className="mt-3 w-full rounded-lg bg-white/10 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/20"
+          >
+            📍 View on map
+          </button>
+
+          <BottomSheet open={mapOpen} onClose={() => setMapOpen(false)}>
+            <SeatingMap highlightedTable={state.tableId} />
+          </BottomSheet>
         </div>
       )}
 
