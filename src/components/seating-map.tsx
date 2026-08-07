@@ -63,7 +63,7 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
   return (
     <svg
       viewBox="140 0 660 840"
-      className="w-full h-auto"
+      className="w-full h-auto max-h-[70vh]"
       role="img"
       aria-label="Venue floor plan"
     >
@@ -188,28 +188,30 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
       </text>
 
       {/* Entrance arrow */}
-      <g transform="translate(405, 785)">
-        <path
-          d="M0 38 L0 4 M-6 11 L0 3 L6 11"
-          fill="none"
-          stroke="#B8674A"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+      <g className="seating-map-glow" style={{ transformOrigin: "420px 800px" }}>
+        <g transform="translate(405, 775)">
+          <path
+            d="M0 48 L0 4 M-8 14 L0 3 L8 14"
+            fill="none"
+            stroke="#B8674A"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </g>
+        <text
+          x="435"
+          y="808"
+          fill="#B8674A"
+          fontSize={18}
+          fontFamily="'Montserrat', system-ui, sans-serif"
+          fontWeight={700}
+          letterSpacing=".2em"
+          style={{ textTransform: "uppercase" as const }}
+        >
+          Entrance
+        </text>
       </g>
-      <text
-        x="435"
-        y="808"
-        fill="#B8674A"
-        fontSize={13}
-        fontFamily="'Montserrat', system-ui, sans-serif"
-        fontWeight={600}
-        letterSpacing=".2em"
-        style={{ textTransform: "uppercase" as const }}
-      >
-        Entrance
-      </text>
 
       {/* Vendor table */}
       <circle

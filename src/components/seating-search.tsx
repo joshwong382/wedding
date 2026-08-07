@@ -51,6 +51,8 @@ export function SeatingSearch() {
     setDropdownOpen(false);
     setState({ stage: "result", name, tableId });
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, tableId }));
+    window.dispatchEvent(new Event("seating-guest-selected"));
+    setTimeout(() => setMapOpen(true), 50);
   }
 
   return (
@@ -72,6 +74,7 @@ export function SeatingSearch() {
             setQuery(e.target.value);
             setState({ stage: "searching" });
             setDropdownOpen(true);
+            localStorage.removeItem(STORAGE_KEY);
           }}
           onFocus={() => setDropdownOpen(true)}
           autoComplete="off"
@@ -105,11 +108,29 @@ export function SeatingSearch() {
             onClick={() => setMapOpen(true)}
             className="mt-3 w-full rounded-lg bg-white/10 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/20"
           >
-            📍 View on map
+            📍 View floor plan
+          </button>
+
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("seating-chart-toggle"))}
+            className="mt-2 w-full rounded-lg bg-white/10 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/20"
+          >
+            📋 View full seating chart
           </button>
 
           <BottomSheet open={mapOpen} onClose={() => setMapOpen(false)}>
+            <p className="mb-2 text-center text-2xl font-bold text-[#2B2622]">
+              {formatTableLabel(state.tableId)}
+            </p>
             <SeatingMap highlightedTable={state.tableId} />
+            <button
+              type="button"
+              onClick={() => setMapOpen(false)}
+              className="mt-3 w-full rounded-lg bg-[#2B2622] py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#3d3530]"
+            >
+              👥 See tablemates
+            </button>
           </BottomSheet>
         </div>
       )}
