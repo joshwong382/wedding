@@ -34,7 +34,7 @@ function Label({
   x,
   y,
   text,
-  size = 9,
+  size = 11,
 }: {
   x: number;
   y: number;
@@ -62,7 +62,7 @@ function Label({
 export function SeatingMap({ highlightedTable }: { highlightedTable: string | null }) {
   return (
     <svg
-      viewBox="0 0 800 780"
+      viewBox="140 0 660 840"
       className="w-full h-auto"
       role="img"
       aria-label="Venue floor plan"
@@ -127,7 +127,7 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
         fontFamily="'Cormorant Garamond', Georgia, serif"
         fontStyle="italic"
         fontWeight={500}
-        fontSize="28"
+        fontSize="32"
         letterSpacing=".01em"
         fill={highlightedTable === "0" ? "#fff" : "#2B2622"}
       >
@@ -142,20 +142,33 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
       <Label x={100} y={413} text="room" />
 
       {/* Venue features */}
-      <rect x="551" y="129" width="61" height="22" fill="#fff" stroke="#CFC4B4" strokeWidth="1" rx="2" />
+      <rect x="551" y="128" width="61" height="24" fill="#fff" stroke="#CFC4B4" strokeWidth="1" rx="2" />
       <Label x={581.5} y={140} text="DJ" />
 
-      <rect x="656" y="465" width="69" height="32" fill="#fff" stroke="#CFC4B4" strokeWidth="1" rx="2" />
+      <rect x="650" y="460" width="81" height="40" fill="#fff" stroke="#CFC4B4" strokeWidth="1" rx="2" />
       <Label x={690.5} y={477} text="Ice" />
       <Label x={690.5} y={491} text="cream" />
 
-      <rect x="258.5" y="706" width="90" height="44" fill="#fff" stroke="#CFC4B4" strokeWidth="1" rx="2" />
+      <rect x="248" y="702" width="110" height="50" fill="#fff" stroke="#CFC4B4" strokeWidth="1" rx="2" />
       <Label x={303.5} y={728} text="Photobooth" />
 
-      <rect x="460" y="706" width="127.5" height="44" fill="#fff" stroke="#CFC4B4" strokeWidth="1" rx="2" />
+      <rect x="448" y="702" width="150" height="50" fill="#fff" stroke="#CFC4B4" strokeWidth="1" rx="2" />
       <Label x={523.75} y={728} text="Welcome table" />
 
-      <Label x={410} y={745} text="Screen" size={9} />
+      <text
+        x={410}
+        y={745}
+        textAnchor="middle"
+        dominantBaseline="central"
+        fill="#B8674A"
+        fontSize={12}
+        fontFamily="'Montserrat', system-ui, sans-serif"
+        fontWeight={500}
+        letterSpacing=".14em"
+        style={{ textTransform: "uppercase" as const }}
+      >
+        Screen
+      </text>
 
       {/* Screen labels near head table */}
       <Label x={298} y={101} text="Screen" />
@@ -166,7 +179,7 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
         textAnchor="middle"
         dominantBaseline="central"
         fill="#B8674A"
-        fontSize={9}
+        fontSize={11}
         fontFamily="'Montserrat', system-ui, sans-serif"
         fontWeight={300}
         letterSpacing=".14em"
@@ -175,12 +188,12 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
       </text>
 
       {/* Entrance arrow */}
-      <g transform="translate(405, 788)">
+      <g transform="translate(405, 785)">
         <path
-          d="M0 34 L0 4 M-4.5 9 L0 3.5 L4.5 9"
+          d="M0 38 L0 4 M-6 11 L0 3 L6 11"
           fill="none"
           stroke="#B8674A"
-          strokeWidth="1.6"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -189,9 +202,9 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
         x="435"
         y="808"
         fill="#B8674A"
-        fontSize={9}
+        fontSize={13}
         fontFamily="'Montserrat', system-ui, sans-serif"
-        fontWeight={300}
+        fontWeight={600}
         letterSpacing=".2em"
         style={{ textTransform: "uppercase" as const }}
       >
@@ -214,7 +227,7 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
         textAnchor="middle"
         dominantBaseline="central"
         fontFamily="'Cormorant Garamond', Georgia, serif"
-        fontSize="21"
+        fontSize="24"
         fontWeight={600}
         letterSpacing=".06em"
         fill="#B8674A"
@@ -226,16 +239,17 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
       {GUEST_TABLES.map(({ id, cx, cy }) => {
         const isHighlighted = highlightedTable === id;
         return (
-          <g key={id} className={isHighlighted ? "seating-map-glow" : ""}>
+          <g key={id} className={isHighlighted ? "seating-map-glow" : ""} style={isHighlighted ? { transformOrigin: `${cx}px ${cy}px` } : undefined}>
             {isHighlighted && (
               <circle
                 cx={cx}
                 cy={cy}
-                r={TABLE_RADIUS + 6}
+                r={TABLE_RADIUS + 10}
                 fill="none"
                 stroke="#B8674A"
                 strokeWidth="3"
                 className="seating-map-pulse"
+                style={{ transformOrigin: `${cx}px ${cy}px` }}
               />
             )}
             <circle
@@ -245,6 +259,7 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
               fill={isHighlighted ? "#B8674A" : "#fff"}
               stroke={isHighlighted ? "#B8674A" : "#CFC4B4"}
               strokeWidth={isHighlighted ? 2 : 1}
+              opacity={!isHighlighted && highlightedTable ? 0.4 : 1}
               filter={isHighlighted ? "url(#table-glow)" : undefined}
             />
             <text
@@ -253,9 +268,10 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
               textAnchor="middle"
               dominantBaseline="central"
               fontFamily="'Cormorant Garamond', Georgia, serif"
-              fontSize="22"
+              fontSize={isHighlighted ? "32" : "26"}
               fontWeight={600}
               fill={isHighlighted ? "#fff" : "#2B2622"}
+              opacity={!isHighlighted && highlightedTable ? 0.4 : 1}
             >
               {id}
             </text>
