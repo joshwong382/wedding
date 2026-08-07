@@ -75,10 +75,13 @@ export function isVegetarian(guestName: string): boolean {
 
 const STORAGE_KEY = "seating-guest";
 
+export type Lang = "en" | "zh";
+
 export interface SavedGuest {
   readonly name: string;
   readonly tableId: string;
   readonly vegetarian?: boolean;
+  readonly lang?: Lang;
 }
 
 /**
@@ -89,8 +92,8 @@ export function loadSavedGuest(): SavedGuest | null {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (!saved) return null;
-    const { name, tableId } = JSON.parse(saved);
-    if (name && tableId) return { name, tableId };
+    const { name, tableId, lang } = JSON.parse(saved);
+    if (name && tableId) return { name, tableId, lang: lang === "zh" ? "zh" : "en" };
   } catch { /* ignore corrupt data or SSR */ }
   return null;
 }
@@ -98,10 +101,10 @@ export function loadSavedGuest(): SavedGuest | null {
 /**
  * Persist the selected guest to localStorage.
  */
-export function saveGuest(name: string, tableId: string): void {
+export function saveGuest(name: string, tableId: string, lang: Lang = "en"): void {
   localStorage.setItem(
     STORAGE_KEY,
-    JSON.stringify({ name, tableId, vegetarian: isVegetarian(name) }),
+    JSON.stringify({ name, tableId, vegetarian: isVegetarian(name), lang }),
   );
 }
 
@@ -110,4 +113,16 @@ export function saveGuest(name: string, tableId: string): void {
  */
 export function clearSavedGuest(): void {
   localStorage.removeItem(STORAGE_KEY);
+}
+
+const LANG_KEY = "site-lang";
+
+export function loadLang(): Lang {
+  try {
+    return localStorage.getItem(LANG_KEY) === "zh" ? "zh" : "en";
+  } catch { return "en"; }
+}
+
+export function saveLang(lang: Lang): void {
+  try { localStorage.setItem(LANG_KEY, lang); } catch { /* SSR */ }
 }

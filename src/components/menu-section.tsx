@@ -3,11 +3,13 @@
 import { useState, useEffect } from "react";
 import { menu, type Course } from "@/content/menu";
 import { siteConfig } from "@/content/site";
-import { loadSavedGuest, isVegetarian } from "@/lib/seating-search";
+import { loadSavedGuest, isVegetarian, loadLang, type Lang } from "@/lib/seating-search";
 
 type MenuKey = "regular" | "vegetarian";
 
-function CourseRow({ course }: { course: Course }) {
+function CourseRow({ course, lang }: { course: Course; lang: Lang }) {
+  const main = lang === "zh" ? course.zh : course.en;
+  const secondary = lang === "zh" ? course.en : course.zh;
   return (
     <li className="flex gap-3 py-3 border-b border-gray-100 last:border-0">
       <span className="w-6 shrink-0 text-right text-sm font-semibold text-[var(--color-primary)] tabular-nums">
@@ -15,10 +17,10 @@ function CourseRow({ course }: { course: Course }) {
       </span>
       <div className="min-w-0">
         <p className="text-[var(--color-heading)] font-medium leading-snug">
-          {course.en}
+          {main}
         </p>
         <p className="text-[var(--color-body-muted)] text-sm leading-snug mt-1.5">
-          {course.zh}
+          {secondary}
         </p>
       </div>
     </li>
@@ -27,18 +29,24 @@ function CourseRow({ course }: { course: Course }) {
 
 export function MenuSection() {
   const [activeTab, setActiveTab] = useState<MenuKey>("regular");
+  const [lang, setLang] = useState<Lang>("en");
   const activeMenu = menu[activeTab];
 
   useEffect(() => {
-    function syncDiet() {
+    function syncFromSaved() {
       const saved = loadSavedGuest();
       if (saved) {
         setActiveTab(isVegetarian(saved.name) ? "vegetarian" : "regular");
       }
+      setLang(loadLang());
     }
-    syncDiet();
-    window.addEventListener("seating-guest-selected", syncDiet);
-    return () => window.removeEventListener("seating-guest-selected", syncDiet);
+    syncFromSaved();
+    window.addEventListener("seating-guest-selected", syncFromSaved);
+    window.addEventListener("seating-lang-changed", syncFromSaved);
+    return () => {
+      window.removeEventListener("seating-guest-selected", syncFromSaved);
+      window.removeEventListener("seating-lang-changed", syncFromSaved);
+    };
   }, []);
 
   return (
@@ -47,10 +55,10 @@ export function MenuSection() {
         {/* Section heading */}
         <div className="text-center mb-8">
           <h2 className="font-display text-4xl text-[var(--color-heading)]">
-            {siteConfig.sections.menu.title}
+            {lang === "zh" ? siteConfig.sections.menu.titleZh : siteConfig.sections.menu.title}
           </h2>
           <p className="text-[var(--color-body-muted)] text-sm mt-1.5">
-            {siteConfig.sections.menu.titleZh}
+            {lang === "zh" ? siteConfig.sections.menu.title : siteConfig.sections.menu.titleZh}
           </p>
         </div>
 
@@ -75,7 +83,7 @@ export function MenuSection() {
         {/* Course list */}
         <ol className="list-none p-0 m-0">
           {activeMenu.courses.map((course) => (
-            <CourseRow key={`${activeTab}-${course.en}`} course={course} />
+            <CourseRow key={`${activeTab}-${course.en}`} course={course} lang={lang} />
           ))}
         </ol>
 
@@ -83,10 +91,10 @@ export function MenuSection() {
         <div className="mt-10">
           <div className="text-center mb-4">
             <h2 className="font-display text-2xl text-[var(--color-heading)]">
-              {menu.lateNight.title}
+              {lang === "zh" ? menu.lateNight.titleZh : menu.lateNight.title}
             </h2>
             <p className="text-[var(--color-body-muted)] text-sm mt-1.5">
-              {menu.lateNight.titleZh}
+              {lang === "zh" ? menu.lateNight.title : menu.lateNight.titleZh}
             </p>
             <p className="text-[var(--color-heading)] font-medium mt-3">
               {menu.lateNight.subtitle}
@@ -96,10 +104,10 @@ export function MenuSection() {
             {menu.lateNight.courses.map((course) => (
               <li key={`lateNight-${course.en}`}>
                 <p className="text-[var(--color-heading)] font-medium leading-snug">
-                  {course.en}
+                  {lang === "zh" ? course.zh : course.en}
                 </p>
                 <p className="text-[var(--color-body-muted)] text-sm leading-snug mt-1.5">
-                  {course.zh}
+                  {lang === "zh" ? course.en : course.zh}
                 </p>
               </li>
             ))}

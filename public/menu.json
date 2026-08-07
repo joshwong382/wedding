@@ -1,20 +1,20 @@
 {
   "regular": {
-    "label": "🦀 Regular 葷菜",
+    "label": "🦀 Regular 荤菜",
     "courses": [
-      { "order": 1, "en": "Suckling Pig (Half)", "zh": "大紅乳猪 （半隻）" },
-      { "order": 2, "en": "Braised Stuffed Crab Claws", "zh": "百花釀蟹钳 （十隻）" },
-      { "order": 3, "en": "Jade Shrimp Balls Stir-fried with Scallops", "zh": "翡翠蝦球炒帶子" },
-      { "order": 4, "en": "Seafood Thick Soup with Conpoy & Fish Maw", "zh": "瑤柱花膠海味羹" },
+      { "order": 1, "en": "Suckling Pig (Half)", "zh": "大红乳猪（半只）" },
+      { "order": 2, "en": "Braised Stuffed Crab Claws", "zh": "百花酿蟹钳（十只）" },
+      { "order": 3, "en": "Jade Shrimp Balls Stir-fried with Scallops", "zh": "翡翠虾球炒带子" },
+      { "order": 4, "en": "Seafood Thick Soup with Conpoy & Fish Maw", "zh": "瑶柱花胶海味羹" },
       { "order": 5, "en": "King Crab in 4 Courses - Steamed Large Claws", "zh": "皇帝蟹四食八磅 - 清蒸大爪" },
-      { "order": null, "en": "King Crab in 4 Courses - Steamed Small Claws with Garlic & Vermicelli", "zh": "皇帝蟹四食八磅 - 蒜蓉粉絲蒸細爪" },
-      { "order": 6, "en": "King Crab in 4 Courses - Crab Body with Maggi", "zh": "皇帝蟹四食八磅 - 美極蟹身" },
+      { "order": null, "en": "King Crab in 4 Courses - Steamed Small Claws with Garlic & Vermicelli", "zh": "皇帝蟹四食八磅 - 蒜蓉粉丝蒸细爪" },
+      { "order": 6, "en": "King Crab in 4 Courses - Crab Body with Maggi", "zh": "皇帝蟹四食八磅 - 美极蟹身" },
       { "order": 7, "en": "Stir-fried Pea Sprout with Wild Mushroom", "zh": "野生菌扒豆苗" },
-      { "order": 8, "en": "Crispy Chicken (1 Chicken)", "zh": "鴻運脆皮雞 （一隻）" },
-      { "order": 9, "en": "Steamed Duo Green Bass", "zh": "清蒸雙青斑" },
-      { "order": 10, "en": "Braised E-fu Noodles with Double Lobster (5 lbs) with Ginger and Scallion", "zh": "薑蔥雙龍蝦 五磅 燜伊麵" },
-      { "order": 11, "en": "King Crab in 4 Courses - Crab Tomalley Fried Rice", "zh": "皇帝蟹四食八磅 - 蟹膏炒魚米之鄉" },
-      { "order": 12, "en": "2 Desserts: Lotus Seeds and Lily Bulbs - Double Delight", "zh": "蓮子百合 - 精美雙輝" }
+      { "order": 8, "en": "Crispy Chicken (1 Chicken)", "zh": "鸿运脆皮鸡（一只）" },
+      { "order": 9, "en": "Steamed Duo Green Bass", "zh": "清蒸双青斑" },
+      { "order": 10, "en": "Braised E-fu Noodles with Double Lobster (5 lbs) with Ginger and Scallion", "zh": "姜葱双龙虾 五磅 焖伊面" },
+      { "order": 11, "en": "King Crab in 4 Courses - Crab Tomalley Fried Rice", "zh": "皇帝蟹四食八磅 - 蟹膏炒鱼米之乡" },
+      { "order": 12, "en": "2 Desserts: Lotus Seeds and Lily Bulbs - Double Delight", "zh": "莲子百合 - 精美双辉" }
     ]
   },
   "vegetarian": {
@@ -22,14 +22,14 @@
     "courses": [
       { "order": 1, "en": "Pan Fried Bean Curd Roll", "zh": "香煎腐皮卷" },
       { "order": 2, "en": "Braised Chinese Mushroom With Tofu", "zh": "冬菇扒玉子豆腐" },
-      { "order": 3, "en": "Stir Fried Vegetarian Mixed Mince", "zh": "金盞炒素丁" },
-      { "order": 4, "en": "Braised Vegetarian Pumpkin Soup", "zh": "金湯燴素羹" },
+      { "order": 3, "en": "Stir Fried Vegetarian Mixed Mince", "zh": "金盏炒素丁" },
+      { "order": 4, "en": "Braised Vegetarian Pumpkin Soup", "zh": "金汤烩素羹" },
       { "order": 5, "en": "Braised Snow Pea Leaves with King Mushroom", "zh": "皇子菇豆苗" },
-      { "order": 6, "en": "Buddha's Delight Vegetables", "zh": "羅汉上素" },
-      { "order": 7, "en": "Pan Fried Vegetarian Salmon", "zh": "香煎素三文魚" },
-      { "order": 8, "en": "Stir Fried Vegetarian Sweet and Sour Pork with Mixed Fruit", "zh": "素雜果咕嚕肉" },
-      { "order": 9, "en": "Stir Fried E-Fu Noodles", "zh": "乾燒伊面" },
-      { "order": 10, "en": "Mix Vegetable with Fried Rice", "zh": "雜菜炒飯" }
+      { "order": 6, "en": "Buddha's Delight Vegetables", "zh": "罗汉上素" },
+      { "order": 7, "en": "Pan Fried Vegetarian Salmon", "zh": "香煎素三文鱼" },
+      { "order": 8, "en": "Stir Fried Vegetarian Sweet and Sour Pork with Mixed Fruit", "zh": "素杂果咕噜肉" },
+      { "order": 9, "en": "Stir Fried E-Fu Noodles", "zh": "干烧伊面" },
+      { "order": 10, "en": "Mix Vegetable with Fried Rice", "zh": "杂菜炒饭" }
     ]
   },
   "lateNight": {
@@ -37,8 +37,8 @@
     "titleZh": "宵夜",
     "subtitle": "",
     "courses": [
-      { "order": null, "en": "Hims: Black Sesame & Cookie Crumble", "zh": "新郎之選：黑芝麻及曲奇碎雪糕" },
-      { "order": null, "en": "Hers: Black Sesame & Hojicha", "zh": "新娘之選：黑芝麻及焙茶雪糕" }
+      { "order": null, "en": "Hims: Black Sesame & Cookie Crumble", "zh": "新郎之选：黑芝麻及曲奇碎雪糕" },
+      { "order": null, "en": "Hers: Black Sesame & Hojicha", "zh": "新娘之选：黑芝麻及焙茶雪糕" }
     ]
   }
 }

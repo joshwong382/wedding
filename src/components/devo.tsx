@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { devo, type DevoLang } from "@/content/devo";
 import { siteConfig } from "@/content/site";
+import { loadLang } from "@/lib/seating-search";
 
 function Block({
   heading,
@@ -24,6 +25,13 @@ export function Devo() {
   const content = devo[lang];
   const { theme } = siteConfig;
 
+  useEffect(() => {
+    function sync() { setLang(loadLang()); }
+    sync();
+    window.addEventListener("seating-lang-changed", sync);
+    return () => window.removeEventListener("seating-lang-changed", sync);
+  }, []);
+
   return (
     <section
       id="devo"
@@ -33,36 +41,17 @@ export function Devo() {
       }}
     >
       <div className="mx-auto max-w-lg px-4">
-        {/* Section heading — bilingual, independent of the language toggle */}
+        {/* Section heading */}
         <div className="text-center">
           <h2 className="font-display text-4xl text-[var(--color-heading)]">
-            {devo.en.title}
+            {lang === "zh" ? devo.zh.title : devo.en.title}
           </h2>
           <p className="text-[var(--color-body-muted)] text-sm mt-1.5">
-            {devo.zh.title}
+            {lang === "zh" ? devo.en.title : devo.zh.title}
           </p>
         </div>
 
-        {/* Language tabs */}
-        <div className="flex justify-center gap-2 mt-6">
-          {(["en", "zh"] as const).map((key) => (
-            <button
-              key={key}
-              type="button"
-              onClick={() => setLang(key)}
-              aria-pressed={lang === key}
-              className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-                lang === key
-                  ? "bg-[var(--color-primary)] text-white shadow-sm"
-                  : "bg-white/70 text-[var(--color-body-muted)] hover:bg-white"
-              }`}
-            >
-              {devo[key].label}
-            </button>
-          ))}
-        </div>
-
-        <h2 className="text-2xl font-semibold text-[var(--color-heading)] mt-6">
+        <h2 className="text-center text-2xl font-semibold underline underline-offset-4 text-[var(--color-heading)] mt-10">
           {content.subtitle}
         </h2>
 

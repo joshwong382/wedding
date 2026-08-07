@@ -11,6 +11,9 @@ import {
   loadSavedGuest,
   saveGuest,
   clearSavedGuest,
+  loadLang,
+  saveLang,
+  type Lang,
 } from "@/lib/seating-search";
 import { BottomSheet } from "@/components/bottom-sheet";
 import { SeatingMap } from "@/components/seating-map";
@@ -23,6 +26,7 @@ type SearchState =
 export function SeatingSearch() {
   const [query, setQuery] = useState("");
   const [state, setState] = useState<SearchState>({ stage: "idle" });
+  const [lang, setLang] = useState<Lang>("en");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const [chartHidden, setChartHidden] = useState(false);
@@ -39,6 +43,10 @@ export function SeatingSearch() {
       setChartHidden(true);
       window.dispatchEvent(new Event("seating-guest-selected"));
     }
+    setLang(loadLang());
+    function syncLang() { setLang(loadLang()); }
+    window.addEventListener("seating-lang-changed", syncLang);
+    return () => window.removeEventListener("seating-lang-changed", syncLang);
   }, []);
 
   // Close dropdown on outside click
@@ -65,10 +73,19 @@ export function SeatingSearch() {
     setActiveIndex(-1);
     setState({ stage: "result", name, tableId });
     setChartHidden(true);
-    saveGuest(name, tableId);
+    saveGuest(name, tableId, lang);
     window.dispatchEvent(new Event("seating-guest-selected"));
     setTimeout(() => setMapOpen(true), 50);
-  }, []);
+  }, [lang]);
+
+  const setLanguage = useCallback((newLang: Lang) => {
+    setLang(newLang);
+    saveLang(newLang);
+    if (state.stage === "result") {
+      saveGuest(state.name, state.tableId, newLang);
+    }
+    window.dispatchEvent(new Event("seating-lang-changed"));
+  }, [state]);
 
   function handleKeyDown(e: React.KeyboardEvent) {
     if (!showDropdown) return;
