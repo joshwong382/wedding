@@ -24,10 +24,12 @@ export function SeatingChartImage() {
     function onGuestSelected() {
       setCollapsed(true);
     }
+    function onGuestCleared() {
+      setCollapsed(false);
+    }
     function onToggle() {
       setCollapsed((prev) => {
         if (prev) {
-          // Expanding — scroll into view after transition
           setTimeout(() => {
             sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
           }, 100);
@@ -36,9 +38,11 @@ export function SeatingChartImage() {
       });
     }
     window.addEventListener("seating-guest-selected", onGuestSelected);
+    window.addEventListener("seating-guest-cleared", onGuestCleared);
     window.addEventListener("seating-chart-toggle", onToggle);
     return () => {
       window.removeEventListener("seating-guest-selected", onGuestSelected);
+      window.removeEventListener("seating-guest-cleared", onGuestCleared);
       window.removeEventListener("seating-chart-toggle", onToggle);
     };
   }, []);

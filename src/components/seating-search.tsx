@@ -34,6 +34,7 @@ export function SeatingSearch() {
   const [state, setState] = useState<SearchState>({ stage: "idle" });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
+  const [chartHidden, setChartHidden] = useState(false);
   const deferredQuery = useDeferredValue(query);
 
   // Hydrate from localStorage after mount to avoid SSR mismatch
@@ -42,6 +43,7 @@ export function SeatingSearch() {
     if (saved.stage === "result") {
       setQuery(saved.name);
       setState(saved);
+      setChartHidden(true);
     }
   }, []);
 
@@ -80,6 +82,7 @@ export function SeatingSearch() {
             setState({ stage: "searching" });
             setDropdownOpen(true);
             localStorage.removeItem(STORAGE_KEY);
+            window.dispatchEvent(new Event("seating-guest-cleared"));
           }}
           onFocus={() => setDropdownOpen(true)}
           autoComplete="off"
@@ -118,10 +121,13 @@ export function SeatingSearch() {
 
           <button
             type="button"
-            onClick={() => window.dispatchEvent(new Event("seating-chart-toggle"))}
+            onClick={() => {
+              setChartHidden((h) => !h);
+              window.dispatchEvent(new Event("seating-chart-toggle"));
+            }}
             className="mt-2 w-full rounded-lg bg-white/10 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/20"
           >
-            📋 View full seating chart
+            {chartHidden ? "📋 View full seating chart" : "📋 Hide full seating chart"}
           </button>
 
           <BottomSheet open={mapOpen} onClose={() => setMapOpen(false)}>
@@ -137,6 +143,15 @@ export function SeatingSearch() {
               👥 See tablemates
             </button>
           </BottomSheet>
+        </div>
+      )}
+
+      {/* Scroll hint arrow */}
+      {state.stage === "result" && (
+        <div className="mt-4 flex justify-center animate-bounce">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/40">
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
         </div>
       )}
 
