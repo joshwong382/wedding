@@ -170,8 +170,8 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
       <Label x={523.75} y={728} text="Welcome table" />
 
       <text
-        x={403}
-        y={722}
+        x={404}
+        y={672}
         textAnchor="middle"
         dominantBaseline="central"
         fill="#B8674A"
@@ -202,9 +202,9 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
       </text>
 
       {/* Entrance arrow: comes from right, turns 90° up through the doorway */}
-      <g className="seating-map-glow" style={{ transformOrigin: "535px 806px" }}>
+      <g className="seating-map-glow" style={{ transformOrigin: "522px 806px" }}>
         <path
-          d="M640 806 L441 806 L441 703 M435 714 L441 702 L447 714"
+          d="M640 806 L404 806 L404 703 M398 714 L404 702 L410 714"
           fill="none"
           stroke="#B8674A"
           strokeWidth="3"
