@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback, useDeferredValue } from "react";
+import { createPortal } from "react-dom";
 import { seatingData } from "@/content/seating";
 import { siteConfig } from "@/content/site";
 import {
@@ -12,10 +13,12 @@ import {
   saveGuest,
   clearSavedGuest,
   loadLang,
+  saveLang,
   type Lang,
 } from "@/lib/seating-search";
 import { BottomSheet } from "@/components/bottom-sheet";
 import { SeatingMap } from "@/components/seating-map";
+import { SeatingChartSheet } from "@/components/seating-chart-sheet";
 
 type SearchState =
   | { stage: "idle" }
@@ -28,10 +31,13 @@ export function SeatingSearch() {
   const [lang, setLang] = useState<Lang>("en");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
-  const [chartHidden, setChartHidden] = useState(false);
+  const [chartOpen, setChartOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [cardVisible, setCardVisible] = useState(true);
   const deferredQuery = useDeferredValue(query);
   const containerRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Hydrate from localStorage after mount to avoid SSR mismatch
   useEffect(() => {
@@ -39,13 +45,25 @@ export function SeatingSearch() {
     if (saved) {
       setQuery(saved.name);
       setState({ stage: "result", name: saved.name, tableId: saved.tableId });
-      setChartHidden(true);
       window.dispatchEvent(new Event("seating-guest-selected"));
     }
     setLang(loadLang());
     function syncLang() { setLang(loadLang()); }
     window.addEventListener("seating-lang-changed", syncLang);
     return () => window.removeEventListener("seating-lang-changed", syncLang);
+  }, []);
+
+  // Track whether the result card is on screen. Once it scrolls away the
+  // sticky pill takes over as the persistent answer to "what table am I?".
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setCardVisible(entry!.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   // Close dropdown on outside click
@@ -71,21 +89,47 @@ export function SeatingSearch() {
     setDropdownOpen(false);
     setActiveIndex(-1);
     setState({ stage: "result", name, tableId });
-    setChartHidden(true);
     saveGuest(name, tableId, lang);
     window.dispatchEvent(new Event("seating-guest-selected"));
-    setTimeout(() => setMapOpen(true), 50);
+    // Auto-open on an explicit pick only. The localStorage restore path
+    // deliberately does not do this — a sheet popping open on every page
+    // refresh is a different experience from one following a tap.
+    setMapOpen(true);
   }, [lang]);
 
-  function clearSearch() {
+  /** Reset the search back to empty and hand focus back to the input. */
+  const clearQuery = useCallback(() => {
     setQuery("");
     setState({ stage: "idle" });
-    setChartHidden(false);
+    setDropdownOpen(false);
+    setActiveIndex(-1);
+    setMapOpen(false);
     clearSavedGuest();
-    window.dispatchEvent(new Event("seating-guest-cleared"));
-  }
+    inputRef.current?.focus();
+  }, []);
+
+  const setLanguage = useCallback((newLang: Lang) => {
+    setLang(newLang);
+    saveLang(newLang);
+    if (state.stage === "result") {
+      saveGuest(state.name, state.tableId, newLang);
+    }
+    window.dispatchEvent(new Event("seating-lang-changed"));
+  }, [state]);
 
   function handleKeyDown(e: React.KeyboardEvent) {
+    // Escape works whether or not the dropdown is open: first press dismisses
+    // the suggestions, a second one clears the field.
+    if (e.key === "Escape") {
+      e.preventDefault();
+      if (showDropdown) {
+        setDropdownOpen(false);
+        setActiveIndex(-1);
+      } else {
+        clearQuery();
+      }
+      return;
+    }
     if (!showDropdown) return;
     switch (e.key) {
       case "ArrowDown":
@@ -103,16 +147,11 @@ export function SeatingSearch() {
           selectGuest(match.name, match.tableId);
         }
         break;
-      case "Escape":
-        e.preventDefault();
-        setDropdownOpen(false);
-        setActiveIndex(-1);
-        break;
     }
   }
 
   return (
-    <div className="mx-auto w-full max-w-xs">
+    <div className="mx-auto w-full max-w-sm" ref={rootRef}>
       <label
         htmlFor="seating-input"
         className="mb-2 block text-base font-bold tracking-[1.5px] text-white"
@@ -123,6 +162,7 @@ export function SeatingSearch() {
       {/* Input with autocomplete dropdown */}
       <div className="relative" ref={containerRef}>
         <input
+          ref={inputRef}
           id="seating-input"
           type="text"
           value={query}
@@ -131,9 +171,8 @@ export function SeatingSearch() {
             setState({ stage: "searching" });
             setDropdownOpen(true);
             setActiveIndex(-1);
-            setChartHidden(false);
+            setMapOpen(false);
             clearSavedGuest();
-            window.dispatchEvent(new Event("seating-guest-cleared"));
           }}
           onFocus={() => setDropdownOpen(true)}
           onKeyDown={handleKeyDown}
@@ -144,18 +183,28 @@ export function SeatingSearch() {
           aria-activedescendant={activeIndex >= 0 ? `seating-option-${activeIndex}` : undefined}
           autoComplete="off"
           spellCheck={false}
-          className="starry-textbox w-full bg-transparent px-4 py-2 text-center text-base text-white outline-none"
+          /* Padding is symmetric so the clear button doesn't knock the
+             centred text off-centre. */
+          className="starry-textbox w-full bg-transparent px-10 py-2 text-center text-base text-white outline-none"
         />
 
         {query.length > 0 && (
           <button
             type="button"
-            onClick={clearSearch}
+            onClick={clearQuery}
             aria-label="Clear search"
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-white/50 hover:text-white transition-colors"
+            className="absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-white/50 transition-colors hover:bg-white/10 hover:text-white"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 6L6 18M6 6l12 12" />
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
             </svg>
           </button>
         )}
@@ -192,47 +241,6 @@ export function SeatingSearch() {
       {state.stage === "result" && (
         <div className="mt-2 rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm p-5 text-white">
           <TableResult name={state.name} tableId={state.tableId} />
-          <button
-            type="button"
-            onClick={() => setMapOpen(true)}
-            className="mt-3 w-full rounded-lg bg-white/10 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/20"
-          >
-            📍 View floor plan
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              setChartHidden((h) => !h);
-              window.dispatchEvent(new Event("seating-chart-toggle"));
-            }}
-            className="mt-2 w-full rounded-lg bg-white/10 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/20"
-          >
-            {chartHidden ? "📋 View full seating chart" : "📋 Hide full seating chart"}
-          </button>
-
-          <BottomSheet open={mapOpen} onClose={() => setMapOpen(false)}>
-            <p className="mb-2 text-center text-2xl font-bold text-[#2B2622]">
-              {formatTableLabel(state.tableId)}
-            </p>
-            <SeatingMap highlightedTable={state.tableId} />
-            <button
-              type="button"
-              onClick={() => setMapOpen(false)}
-              className="mt-3 w-full rounded-lg bg-[#2B2622] py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#3d3530]"
-            >
-              👥 See tablemates
-            </button>
-          </BottomSheet>
-        </div>
-      )}
-
-      {/* Scroll hint arrow */}
-      {state.stage === "result" && (
-        <div className="mt-4 flex justify-center animate-bounce">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/40">
-            <path d="M12 5v14M5 12l7 7 7-7" />
-          </svg>
         </div>
       )}
 
@@ -240,6 +248,123 @@ export function SeatingSearch() {
       {state.stage === "searching" && deferredQuery.length > 0 && matches.length === 0 && (
         <p className="mt-4 text-sm text-white/60">No guests found for &ldquo;{deferredQuery}&rdquo;</p>
       )}
+
+      {/* Actions sit outside the result card: the card stays purely
+          informational, and the chart stays reachable before searching and
+          when a name doesn't match. */}
+      <div className="mt-3 space-y-2">
+        {state.stage === "result" && (
+          <button
+            type="button"
+            onClick={() => setMapOpen(true)}
+            className="w-full rounded-full bg-white py-2.5 text-sm font-semibold text-[#2B2622] transition-colors hover:bg-white/90"
+          >
+            📍 View floor plan
+          </button>
+        )}
+
+        <button
+          type="button"
+          onClick={() => setChartOpen(true)}
+          className="w-full rounded-full bg-[var(--color-primary)] py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+        >
+          📋 View seating chart
+        </button>
+      </div>
+
+      <BottomSheet
+        open={chartOpen}
+        onClose={() => setChartOpen(false)}
+        title="Full seating chart"
+        maxHeight="max-h-[92vh]"
+      >
+        <SeatingChartSheet />
+      </BottomSheet>
+
+      {/* Scroll hint — a real control, not just an animated glyph */}
+      {state.stage === "result" && (
+        <div className="mt-4 flex justify-center">
+          <button
+            type="button"
+            onClick={() =>
+              document
+                .getElementById("devo")
+                ?.scrollIntoView({ behavior: "smooth", block: "start" })
+            }
+            aria-label="Scroll to the rest of the page"
+            className="rounded-full p-2 text-white/40 transition-colors hover:text-white/80"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="animate-bounce motion-reduce:animate-none"
+            >
+              <path d="M12 5v14M5 12l7 7 7-7" />
+            </svg>
+          </button>
+        </div>
+      )}
+
+      {/* Floor plan sheet. Shared by the card button and the sticky pill, so it
+          lives outside the card — which scrolls away. */}
+      {state.stage === "result" && (
+        <BottomSheet
+          open={mapOpen}
+          onClose={() => setMapOpen(false)}
+          title="Venue floor plan"
+        >
+          <p className="mb-2 text-center text-2xl font-bold text-[#2B2622]">
+            {formatTableLabel(state.tableId)}
+          </p>
+          <SeatingMap highlightedTable={state.tableId} />
+        </BottomSheet>
+      )}
+
+      {/* Sticky pill — keeps the answer reachable once the card is off screen.
+          Portalled to body because .hero-element's transform would otherwise
+          become the containing block for position: fixed. The "result" guard
+          means this only ever renders client-side, so document is available. */}
+      {state.stage === "result" &&
+        createPortal(
+          <div
+            aria-hidden={cardVisible}
+            className={`fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-all duration-300 ${
+              cardVisible
+                ? "pointer-events-none translate-y-3 opacity-0"
+                : "translate-y-0 opacity-100"
+            }`}
+          >
+            <div className="flex max-w-full items-center rounded-full border border-white/10 bg-[#2B2622]/95 px-1 py-1.5 text-white shadow-lg backdrop-blur-sm">
+              <span className="whitespace-nowrap px-2 text-sm font-semibold">
+                {formatTableLabel(state.tableId)}
+              </span>
+              <span className="h-4 w-px shrink-0 bg-white/20" aria-hidden="true" />
+              <button
+                type="button"
+                onClick={() => setMapOpen(true)}
+                tabIndex={cardVisible ? -1 : 0}
+                className="whitespace-nowrap rounded-full px-2 py-1.5 text-xs font-medium transition-colors hover:bg-white/10"
+              >
+                📍 Floor plan
+              </button>
+              <button
+                type="button"
+                onClick={() => setChartOpen(true)}
+                tabIndex={cardVisible ? -1 : 0}
+                className="whitespace-nowrap rounded-full px-2 py-1.5 text-xs font-medium transition-colors hover:bg-white/10"
+              >
+                📋 Seating Chart
+              </button>
+            </div>
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
