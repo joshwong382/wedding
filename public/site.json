@@ -151,14 +151,14 @@
     "email": "joshua@josh-wong.net"
   },
   "theme": {
-    "primary": "#CA7A7F",
+    "primary": "#B8674A",
     "accent": "#A32140",
-    "heading": "#121F38",
-    "bodyMuted": "#818491",
-    "heartDark": "#343a40",
-    "verse": "#2A4B8D",
+    "heading": "#5C5445",
+    "bodyMuted": "#8A8377",
+    "heartDark": "#3D3530",
+    "verse": "#5C5445",
     "heroOverlay": 0.5,
-    "sectionBgFrom": "#f8f9fa",
-    "sectionBgTo": "#e9ecef"
+    "sectionBgFrom": "#FAF7F2",
+    "sectionBgTo": "#F4EFE8"
   }
 }

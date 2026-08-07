@@ -9,6 +9,8 @@ import {
   formatTableLabel,
   isHeadTable,
 } from "@/lib/seating-search";
+import { BottomSheet } from "@/components/bottom-sheet";
+import { SeatingMap } from "@/components/seating-map";
 
 type SearchState =
   | { stage: "idle" }
@@ -18,7 +20,6 @@ type SearchState =
 const STORAGE_KEY = "seating-guest";
 
 function loadSavedGuest(): SearchState {
-  if (typeof window === "undefined") return { stage: "idle" };
   const saved = localStorage.getItem(STORAGE_KEY);
   if (!saved) return { stage: "idle" };
   try {
@@ -32,13 +33,18 @@ export function SeatingSearch() {
   const [query, setQuery] = useState("");
   const [state, setState] = useState<SearchState>({ stage: "idle" });
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
+  const [chartHidden, setChartHidden] = useState(false);
   const deferredQuery = useDeferredValue(query);
 
+  // Hydrate from localStorage after mount to avoid SSR mismatch
   useEffect(() => {
     const saved = loadSavedGuest();
     if (saved.stage === "result") {
-      setState(saved);
       setQuery(saved.name);
+      setState(saved);
+      setChartHidden(true);
+      window.dispatchEvent(new Event("seating-guest-selected"));
     }
   }, []);
 
@@ -52,7 +58,10 @@ export function SeatingSearch() {
     setQuery(name);
     setDropdownOpen(false);
     setState({ stage: "result", name, tableId });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, tableId }));
+    const vegetarian = name.includes("🥦");
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, tableId, vegetarian }));
+    window.dispatchEvent(new Event("seating-guest-selected"));
+    setTimeout(() => setMapOpen(true), 50);
   }
 
   return (
@@ -74,6 +83,8 @@ export function SeatingSearch() {
             setQuery(e.target.value);
             setState({ stage: "searching" });
             setDropdownOpen(true);
+            localStorage.removeItem(STORAGE_KEY);
+            window.dispatchEvent(new Event("seating-guest-cleared"));
           }}
           onFocus={() => setDropdownOpen(true)}
           autoComplete="off"
@@ -102,6 +113,47 @@ export function SeatingSearch() {
       {state.stage === "result" && (
         <div className="mt-2 rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm p-5 text-white">
           <TableResult name={state.name} tableId={state.tableId} />
+          <button
+            type="button"
+            onClick={() => setMapOpen(true)}
+            className="mt-3 w-full rounded-lg bg-white/10 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/20"
+          >
+            📍 View floor plan
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setChartHidden((h) => !h);
+              window.dispatchEvent(new Event("seating-chart-toggle"));
+            }}
+            className="mt-2 w-full rounded-lg bg-white/10 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/20"
+          >
+            {chartHidden ? "📋 View full seating chart" : "📋 Hide full seating chart"}
+          </button>
+
+          <BottomSheet open={mapOpen} onClose={() => setMapOpen(false)}>
+            <p className="mb-2 text-center text-2xl font-bold text-[#2B2622]">
+              {formatTableLabel(state.tableId)}
+            </p>
+            <SeatingMap highlightedTable={state.tableId} />
+            <button
+              type="button"
+              onClick={() => setMapOpen(false)}
+              className="mt-3 w-full rounded-lg bg-[#2B2622] py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#3d3530]"
+            >
+              👥 See tablemates
+            </button>
+          </BottomSheet>
+        </div>
+      )}
+
+      {/* Scroll hint arrow */}
+      {state.stage === "result" && (
+        <div className="mt-4 flex justify-center animate-bounce">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/40">
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
         </div>
       )}
 

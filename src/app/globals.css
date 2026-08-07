@@ -5,7 +5,7 @@
 @custom-variant short (@media (max-height: 500px));
 
 @theme {
-  --color-primary: #CA7A7F;
+  --color-primary: #B8674A;
   --color-accent: #A32140;
   --font-display: "Amoresa Aged", cursive;
   --font-body: "Montserrat", sans-serif;
@@ -80,4 +80,24 @@ body {
   font-size: 3rem;
   font-weight: 300;
   line-height: 1.5;
+}
+
+/* Seating map highlight pulse */
+@keyframes seating-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.15); }
+}
+
+@keyframes seating-scale-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+.seating-map-pulse {
+  animation: seating-pulse 1.5s ease-in-out infinite;
+}
+
+.seating-map-glow {
+  filter: drop-shadow(0 0 14px rgba(184, 103, 74, 0.7));
+  animation: seating-scale-pulse 2s ease-in-out infinite;
 }
