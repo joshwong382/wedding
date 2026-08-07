@@ -63,7 +63,7 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
   return (
     <svg
       viewBox="140 0 660 840"
-      className="w-full h-auto max-h-[70vh]"
+      className="w-full h-auto max-h-[60vh]"
       role="img"
       aria-label="Venue floor plan"
     >
