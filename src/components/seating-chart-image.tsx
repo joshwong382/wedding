@@ -2,8 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useRef } from "react";
-
-const STORAGE_KEY = "seating-guest";
+import { loadSavedGuest } from "@/lib/seating-search";
 
 export function SeatingChartImage() {
   const [collapsed, setCollapsed] = useState(false);
@@ -11,13 +10,7 @@ export function SeatingChartImage() {
 
   // Hydrate collapsed state from localStorage after mount
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const { name, tableId } = JSON.parse(saved);
-        if (name && tableId) setCollapsed(true);
-      }
-    } catch { /* ignore */ }
+    if (loadSavedGuest()) setCollapsed(true);
   }, []);
 
   useEffect(() => {

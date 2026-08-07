@@ -11,9 +11,9 @@ export function Footer() {
       }}
     >
       <div className="mx-auto max-w-lg px-4 text-center">
-        <h1 className="font-display text-4xl text-[var(--color-heading)]">
+        <h2 className="font-display text-4xl text-[var(--color-heading)]">
           {siteConfig.sections.footer.title}
-        </h1>
+        </h2>
 
         <p className="mt-6 text-[var(--color-body-muted)] leading-relaxed">
           We are so grateful to celebrate this day with you.

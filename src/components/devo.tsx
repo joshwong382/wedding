@@ -35,9 +35,9 @@ export function Devo() {
       <div className="mx-auto max-w-lg px-4">
         {/* Section heading — bilingual, independent of the language toggle */}
         <div className="text-center">
-          <h1 className="font-display text-4xl text-[var(--color-heading)]">
+          <h2 className="font-display text-4xl text-[var(--color-heading)]">
             {devo.en.title}
-          </h1>
+          </h2>
           <p className="text-[var(--color-body-muted)] text-sm mt-1.5">
             {devo.zh.title}
           </p>

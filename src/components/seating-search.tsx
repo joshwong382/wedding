@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useDeferredValue } from "react";
+import { useState, useEffect, useRef, useCallback, useDeferredValue } from "react";
 import { seatingData } from "@/content/seating";
 import { siteConfig } from "@/content/site";
 import {
@@ -8,6 +8,9 @@ import {
   getTableGuests,
   formatTableLabel,
   isHeadTable,
+  loadSavedGuest,
+  saveGuest,
+  clearSavedGuest,
 } from "@/lib/seating-search";
 import { BottomSheet } from "@/components/bottom-sheet";
 import { SeatingMap } from "@/components/seating-map";
@@ -17,35 +20,37 @@ type SearchState =
   | { stage: "searching" }
   | { stage: "result"; name: string; tableId: string };
 
-const STORAGE_KEY = "seating-guest";
-
-function loadSavedGuest(): SearchState {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (!saved) return { stage: "idle" };
-  try {
-    const { name, tableId } = JSON.parse(saved);
-    if (name && tableId) return { stage: "result", name, tableId };
-  } catch { /* ignore corrupt data */ }
-  return { stage: "idle" };
-}
-
 export function SeatingSearch() {
   const [query, setQuery] = useState("");
   const [state, setState] = useState<SearchState>({ stage: "idle" });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const [chartHidden, setChartHidden] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const deferredQuery = useDeferredValue(query);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Hydrate from localStorage after mount to avoid SSR mismatch
   useEffect(() => {
     const saved = loadSavedGuest();
-    if (saved.stage === "result") {
+    if (saved) {
       setQuery(saved.name);
-      setState(saved);
+      setState({ stage: "result", name: saved.name, tableId: saved.tableId });
       setChartHidden(true);
       window.dispatchEvent(new Event("seating-guest-selected"));
     }
+  }, []);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+        setActiveIndex(-1);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const matches = state.stage !== "result"
@@ -54,15 +59,41 @@ export function SeatingSearch() {
 
   const showDropdown = dropdownOpen && deferredQuery.length > 0 && state.stage !== "result" && matches.length > 0;
 
-  function selectGuest(name: string, tableId: string) {
+  const selectGuest = useCallback((name: string, tableId: string) => {
     setQuery(name);
     setDropdownOpen(false);
+    setActiveIndex(-1);
     setState({ stage: "result", name, tableId });
     setChartHidden(true);
-    const vegetarian = name.includes("🥦");
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, tableId, vegetarian }));
+    saveGuest(name, tableId);
     window.dispatchEvent(new Event("seating-guest-selected"));
     setTimeout(() => setMapOpen(true), 50);
+  }, []);
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (!showDropdown) return;
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setActiveIndex((prev) => (prev < matches.length - 1 ? prev + 1 : 0));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        setActiveIndex((prev) => (prev > 0 ? prev - 1 : matches.length - 1));
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (activeIndex >= 0 && activeIndex < matches.length) {
+          const match = matches[activeIndex]!;
+          selectGuest(match.name, match.tableId);
+        }
+        break;
+      case "Escape":
+        e.preventDefault();
+        setDropdownOpen(false);
+        setActiveIndex(-1);
+        break;
+    }
   }
 
   return (
@@ -75,7 +106,7 @@ export function SeatingSearch() {
       </label>
 
       {/* Input with autocomplete dropdown */}
-      <div className="relative">
+      <div className="relative" ref={containerRef}>
         <input
           id="seating-input"
           type="text"
@@ -84,24 +115,42 @@ export function SeatingSearch() {
             setQuery(e.target.value);
             setState({ stage: "searching" });
             setDropdownOpen(true);
+            setActiveIndex(-1);
             setChartHidden(false);
-            localStorage.removeItem(STORAGE_KEY);
+            clearSavedGuest();
             window.dispatchEvent(new Event("seating-guest-cleared"));
           }}
           onFocus={() => setDropdownOpen(true)}
+          onKeyDown={handleKeyDown}
+          role="combobox"
+          aria-expanded={showDropdown}
+          aria-autocomplete="list"
+          aria-controls="seating-listbox"
+          aria-activedescendant={activeIndex >= 0 ? `seating-option-${activeIndex}` : undefined}
           autoComplete="off"
           spellCheck={false}
           className="starry-textbox w-full bg-transparent px-4 py-2 text-center text-base text-white outline-none"
         />
 
         {showDropdown && (
-          <ul className="absolute left-0 right-0 z-20 mt-1 max-h-48 short:max-h-32 overflow-y-auto rounded-lg border border-white/20 bg-black/90 backdrop-blur-sm">
-            {matches.map((m) => (
-              <li key={`${m.tableId}-${m.name}`}>
+          <ul
+            id="seating-listbox"
+            role="listbox"
+            className="absolute left-0 right-0 z-20 mt-1 max-h-48 short:max-h-32 overflow-y-auto rounded-lg border border-white/20 bg-black/90 backdrop-blur-sm"
+          >
+            {matches.map((m, i) => (
+              <li
+                key={`${m.tableId}-${m.name}`}
+                id={`seating-option-${i}`}
+                role="option"
+                aria-selected={i === activeIndex}
+              >
                 <button
                   type="button"
                   onClick={() => selectGuest(m.name, m.tableId)}
-                  className="block w-full px-4 py-2 text-left text-sm text-white hover:bg-white/10 transition-colors"
+                  className={`block w-full px-4 py-2 text-left text-sm text-white transition-colors ${
+                    i === activeIndex ? "bg-white/20" : "hover:bg-white/10"
+                  }`}
                 >
                   {m.name}
                 </button>

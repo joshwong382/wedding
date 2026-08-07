@@ -24,4 +24,4 @@ export interface MenuData {
   readonly lateNight: LateNight;
 }
 
-export const menu: MenuData = menuData as MenuData;
+export const menu: MenuData = menuData satisfies MenuData;

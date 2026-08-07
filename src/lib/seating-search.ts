@@ -10,7 +10,7 @@ export interface SeatingMatch {
   readonly tableId: string;
 }
 
-const HEAD_TABLE_ID = "0";
+export const HEAD_TABLE_ID = "0";
 
 /**
  * Find all guests whose names contain the search string (case-insensitive).
@@ -64,4 +64,50 @@ export function formatTableLabel(tableId: string): string {
  */
 export function isHeadTable(tableId: string): boolean {
   return tableId === HEAD_TABLE_ID;
+}
+
+/**
+ * Whether a guest name indicates vegetarian diet (marked with 🥦 emoji).
+ */
+export function isVegetarian(guestName: string): boolean {
+  return guestName.includes("🥦");
+}
+
+const STORAGE_KEY = "seating-guest";
+
+export interface SavedGuest {
+  readonly name: string;
+  readonly tableId: string;
+  readonly vegetarian?: boolean;
+}
+
+/**
+ * Load a previously saved guest selection from localStorage.
+ * Returns null if nothing is saved or data is corrupt.
+ */
+export function loadSavedGuest(): SavedGuest | null {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return null;
+    const { name, tableId } = JSON.parse(saved);
+    if (name && tableId) return { name, tableId };
+  } catch { /* ignore corrupt data or SSR */ }
+  return null;
+}
+
+/**
+ * Persist the selected guest to localStorage.
+ */
+export function saveGuest(name: string, tableId: string): void {
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({ name, tableId, vegetarian: isVegetarian(name) }),
+  );
+}
+
+/**
+ * Clear the saved guest from localStorage.
+ */
+export function clearSavedGuest(): void {
+  localStorage.removeItem(STORAGE_KEY);
 }

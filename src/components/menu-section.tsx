@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { menu, type Course } from "@/content/menu";
 import { siteConfig } from "@/content/site";
+import { loadSavedGuest, isVegetarian } from "@/lib/seating-search";
 
 type MenuKey = "regular" | "vegetarian";
 
@@ -30,13 +31,10 @@ export function MenuSection() {
 
   useEffect(() => {
     function syncDiet() {
-      try {
-        const saved = localStorage.getItem("seating-guest");
-        if (saved) {
-          const { name } = JSON.parse(saved);
-          if (typeof name === "string") setActiveTab(name.includes("🥦") ? "vegetarian" : "regular");
-        }
-      } catch { /* ignore */ }
+      const saved = loadSavedGuest();
+      if (saved) {
+        setActiveTab(isVegetarian(saved.name) ? "vegetarian" : "regular");
+      }
     }
     syncDiet();
     window.addEventListener("seating-guest-selected", syncDiet);
@@ -48,9 +46,9 @@ export function MenuSection() {
       <div className="mx-auto max-w-lg px-4">
         {/* Section heading */}
         <div className="text-center mb-8">
-          <h1 className="font-display text-4xl text-[var(--color-heading)]">
+          <h2 className="font-display text-4xl text-[var(--color-heading)]">
             {siteConfig.sections.menu.title}
-          </h1>
+          </h2>
           <p className="text-[var(--color-body-muted)] text-sm mt-1.5">
             {siteConfig.sections.menu.titleZh}
           </p>
@@ -76,8 +74,8 @@ export function MenuSection() {
 
         {/* Course list */}
         <ol className="list-none p-0 m-0">
-          {activeMenu.courses.map((course, i) => (
-            <CourseRow key={`${activeTab}-${i}`} course={course} />
+          {activeMenu.courses.map((course) => (
+            <CourseRow key={`${activeTab}-${course.en}`} course={course} />
           ))}
         </ol>
 
@@ -95,8 +93,8 @@ export function MenuSection() {
             </p>
           </div>
           <ol className="grid grid-cols-2 gap-x-4 gap-y-3 list-none p-0 m-0 text-center">
-            {menu.lateNight.courses.map((course, i) => (
-              <li key={`lateNight-${i}`}>
+            {menu.lateNight.courses.map((course) => (
+              <li key={`lateNight-${course.en}`}>
                 <p className="text-[var(--color-heading)] font-medium leading-snug">
                   {course.en}
                 </p>

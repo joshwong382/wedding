@@ -1,5 +1,7 @@
 "use client";
 
+import { HEAD_TABLE_ID } from "@/lib/seating-search";
+
 const TABLE_RADIUS = 31;
 
 const GUEST_TABLES: readonly { id: string; cx: number; cy: number }[] = [
@@ -92,13 +94,13 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
       {/* Head table shape */}
       <polygon
         points="242.5,22.5 565,22.5 565,110 537,142.5 270.5,142.5 242.5,110"
-        fill={highlightedTable === "0" ? "#B8674A" : "#F5EDE6"}
-        stroke={highlightedTable === "0" ? "#B8674A" : "#C9BFB2"}
+        fill={highlightedTable === HEAD_TABLE_ID ? "#B8674A" : "#F5EDE6"}
+        stroke={highlightedTable === HEAD_TABLE_ID ? "#B8674A" : "#C9BFB2"}
         strokeWidth="1.25"
         strokeLinejoin="round"
-        className={highlightedTable === "0" ? "seating-map-glow" : ""}
-        filter={highlightedTable === "0" ? "url(#table-glow)" : undefined}
-        style={highlightedTable === "0" ? { transformOrigin: "403.75px 82.5px" } : undefined}
+        className={highlightedTable === HEAD_TABLE_ID ? "seating-map-glow" : ""}
+        filter={highlightedTable === HEAD_TABLE_ID ? "url(#table-glow)" : undefined}
+        style={highlightedTable === HEAD_TABLE_ID ? { transformOrigin: "403.75px 82.5px" } : undefined}
       />
 
       {/* Dance floor */}
@@ -130,7 +132,7 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
         fontWeight={500}
         fontSize="32"
         letterSpacing=".01em"
-        fill={highlightedTable === "0" ? "#fff" : "#2B2622"}
+        fill={highlightedTable === HEAD_TABLE_ID ? "#fff" : "#2B2622"}
       >
         Daniel &amp; Eugenia
       </text>

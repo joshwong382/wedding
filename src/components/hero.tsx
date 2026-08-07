@@ -8,7 +8,9 @@ import { SeatingSearch } from "@/components/seating-search";
 export function Hero() {
   const [skipAnim, setSkipAnim] = useState(false);
   useLayoutEffect(() => {
-    if (localStorage.getItem("seating-guest")) setSkipAnim(true);
+    try {
+      if (localStorage.getItem("seating-guest")) setSkipAnim(true);
+    } catch { /* SSR or private browsing */ }
   }, []);
 
   const anim = (...classes: string[]) =>
