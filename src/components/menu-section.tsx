@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { menu, type Course } from "@/content/menu";
 import { siteConfig } from "@/content/site";
 
@@ -27,6 +27,21 @@ function CourseRow({ course }: { course: Course }) {
 export function MenuSection() {
   const [activeTab, setActiveTab] = useState<MenuKey>("regular");
   const activeMenu = menu[activeTab];
+
+  useEffect(() => {
+    function syncDiet() {
+      try {
+        const saved = localStorage.getItem("seating-guest");
+        if (saved) {
+          const { name } = JSON.parse(saved);
+          if (typeof name === "string") setActiveTab(name.includes("🥦") ? "vegetarian" : "regular");
+        }
+      } catch { /* ignore */ }
+    }
+    syncDiet();
+    window.addEventListener("seating-guest-selected", syncDiet);
+    return () => window.removeEventListener("seating-guest-selected", syncDiet);
+  }, []);
 
   return (
     <section id="menu" className="py-12">

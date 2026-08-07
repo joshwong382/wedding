@@ -44,6 +44,7 @@ export function SeatingSearch() {
       setQuery(saved.name);
       setState(saved);
       setChartHidden(true);
+      window.dispatchEvent(new Event("seating-guest-selected"));
     }
   }, []);
 
@@ -57,7 +58,8 @@ export function SeatingSearch() {
     setQuery(name);
     setDropdownOpen(false);
     setState({ stage: "result", name, tableId });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, tableId }));
+    const vegetarian = name.includes("🥦");
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, tableId, vegetarian }));
     window.dispatchEvent(new Event("seating-guest-selected"));
     setTimeout(() => setMapOpen(true), 50);
   }
