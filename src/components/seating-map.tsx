@@ -64,8 +64,8 @@ function Label({
 export function SeatingMap({ highlightedTable }: { highlightedTable: string | null }) {
   return (
     <svg
-      viewBox="140 0 660 840"
-      className="w-full h-auto max-h-[60vh]"
+      viewBox="140 0 660 930"
+      className="w-full h-auto max-h-[60vh] sm:max-h-[70vh]"
       role="img"
       aria-label="Venue floor plan"
     >
@@ -190,31 +190,51 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
         CAKE
       </text>
 
-      {/* Entrance arrow */}
-      <g className="seating-map-glow" style={{ transformOrigin: "420px 800px" }}>
-        <g transform="translate(405, 775)">
-          <path
-            d="M0 48 L0 4 M-8 14 L0 3 L8 14"
-            fill="none"
-            stroke="#B8674A"
-            strokeWidth="3.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
+      {/* Entrance arrow: comes from right, turns 90° up into venue */}
+      <g className="seating-map-glow" style={{ transformOrigin: "470px 820px" }}>
+        <path
+          d="M530 820 L410 820 L410 775 M404 785 L410 774 L416 785"
+          fill="none"
+          stroke="#B8674A"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
         <text
-          x="435"
-          y="808"
+          x="545"
+          y="820"
+          textAnchor="start"
+          dominantBaseline="central"
           fill="#B8674A"
-          fontSize={18}
+          fontSize={11}
           fontFamily="'Montserrat', system-ui, sans-serif"
-          fontWeight={700}
-          letterSpacing=".2em"
+          fontWeight={600}
+          letterSpacing=".14em"
           style={{ textTransform: "uppercase" as const }}
         >
           Entrance
         </text>
       </g>
+
+      {/* Public area label */}
+      <Label x={400} y={845} text="Public area" />
+
+      {/* Bar */}
+      <rect x="320" y="865" width="160" height="32" fill="#fff" stroke="#CFC4B4" strokeWidth="1.5" rx="3" />
+      <text
+        x={400}
+        y={882}
+        textAnchor="middle"
+        dominantBaseline="central"
+        fill="#2B2622"
+        fontSize={14}
+        fontFamily="'Montserrat', system-ui, sans-serif"
+        fontWeight={500}
+        letterSpacing=".14em"
+        style={{ textTransform: "uppercase" as const }}
+      >
+        Bar
+      </text>
 
       {/* Vendor table */}
       <circle
