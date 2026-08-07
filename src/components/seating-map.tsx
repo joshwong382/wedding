@@ -98,6 +98,7 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
         strokeLinejoin="round"
         className={highlightedTable === "0" ? "seating-map-glow" : ""}
         filter={highlightedTable === "0" ? "url(#table-glow)" : undefined}
+        style={highlightedTable === "0" ? { transformOrigin: "403.75px 82.5px" } : undefined}
       />
 
       {/* Dance floor */}

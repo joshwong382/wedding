@@ -58,6 +58,7 @@ export function SeatingSearch() {
     setQuery(name);
     setDropdownOpen(false);
     setState({ stage: "result", name, tableId });
+    setChartHidden(true);
     const vegetarian = name.includes("🥦");
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, tableId, vegetarian }));
     window.dispatchEvent(new Event("seating-guest-selected"));
@@ -83,6 +84,7 @@ export function SeatingSearch() {
             setQuery(e.target.value);
             setState({ stage: "searching" });
             setDropdownOpen(true);
+            setChartHidden(false);
             localStorage.removeItem(STORAGE_KEY);
             window.dispatchEvent(new Event("seating-guest-cleared"));
           }}
