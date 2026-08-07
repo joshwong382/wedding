@@ -1,19 +1,26 @@
 import { siteConfig } from "@/content/site";
 
 export function Footer() {
-  const { credits, meta } = siteConfig;
+  const { credits, meta, theme } = siteConfig;
 
   return (
-    <footer className="bg-[var(--color-accent)] text-white">
-      <div className="bg-black/10 py-16">
-        <div className="mx-auto max-w-3xl px-4 text-center">
-          <div className="section-title relative">
-            <h1 className="section-heading font-display text-white">
-              {siteConfig.sections.footer.title}
-            </h1>
-          </div>
+    <footer
+      className="border-t border-black/10 pt-14 pb-12"
+      style={{
+        background: `linear-gradient(135deg, ${theme.sectionBgFrom} 0%, ${theme.sectionBgTo} 100%)`,
+      }}
+    >
+      <div className="mx-auto max-w-lg px-4 text-center">
+        <h1 className="font-display text-4xl text-[var(--color-heading)]">
+          {siteConfig.sections.footer.title}
+        </h1>
 
-          <p className="mt-6">
+        <p className="mt-6 text-[var(--color-body-muted)] leading-relaxed">
+          We are so grateful to celebrate this day with you.
+        </p>
+
+        <div className="mt-8 border-t border-black/10 pt-6 text-xs text-[var(--color-body-muted)]">
+          <p>
             <a
               href={meta.url}
               className="text-[var(--color-primary)] hover:underline"
@@ -21,11 +28,9 @@ export function Footer() {
               {meta.url}
             </a>
           </p>
-
-          <div className="mt-3 flex flex-col items-center gap-1 sm:flex-row sm:justify-center sm:gap-8">
-            <p className="text-sm">Website by {credits.builtBy}</p>
-            <p className="text-sm text-white/80">{credits.email}</p>
-          </div>
+          <p className="mt-2">
+            Website by {credits.builtBy} · {credits.email}
+          </p>
         </div>
       </div>
     </footer>

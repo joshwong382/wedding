@@ -44,7 +44,7 @@ export function MenuSection() {
   }, []);
 
   return (
-    <section id="menu" className="py-12">
+    <section id="menu" className="py-12" style={{ background: "linear-gradient(135deg, #FFFDF5 0%, #FFF8E7 100%)" }}>
       <div className="mx-auto max-w-lg px-4">
         {/* Section heading */}
         <div className="text-center mb-8">

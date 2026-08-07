@@ -48,7 +48,7 @@ export function SeatingChartImage() {
   }, []);
 
   return (
-    <section ref={sectionRef}>
+    <section ref={sectionRef} style={{ background: "linear-gradient(135deg, #FFFDF5 0%, #FFF8E7 100%)" }}>
       <div className="mx-auto max-w-[95%] text-center sm:max-w-[85%]">
         <div
           className="overflow-hidden transition-all duration-500 ease-in-out"
