@@ -151,7 +151,7 @@ export function SeatingSearch() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-sm" ref={rootRef}>
+    <div className="mx-auto flex w-full max-w-sm flex-1 flex-col" ref={rootRef}>
       <label
         htmlFor="seating-input"
         className="mb-2 block text-base font-bold tracking-[1.5px] text-white"
@@ -252,8 +252,8 @@ export function SeatingSearch() {
       {/* Actions sit outside the result card: the card stays purely
           informational, and the chart stays reachable before searching and
           when a name doesn't match. */}
-      <div className="mt-3 space-y-2">
-        {state.stage === "result" && (
+      {state.stage === "result" && (
+        <div className="mt-3 space-y-2">
           <button
             type="button"
             onClick={() => setMapOpen(true)}
@@ -261,16 +261,15 @@ export function SeatingSearch() {
           >
             📍 View floor plan
           </button>
-        )}
-
-        <button
-          type="button"
-          onClick={() => setChartOpen(true)}
-          className="w-full rounded-full bg-[var(--color-primary)] py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-        >
-          📋 View seating chart
-        </button>
-      </div>
+          <button
+            type="button"
+            onClick={() => setChartOpen(true)}
+            className="w-full rounded-full border border-white/30 py-2.5 text-sm font-medium text-white/70 transition-colors hover:border-white/50 hover:text-white"
+          >
+            📋 View entire chart
+          </button>
+        </div>
+      )}
 
       <BottomSheet
         open={chartOpen}
@@ -353,18 +352,20 @@ export function SeatingSearch() {
               >
                 📍 Floor plan
               </button>
-              <button
-                type="button"
-                onClick={() => setChartOpen(true)}
-                tabIndex={cardVisible ? -1 : 0}
-                className="whitespace-nowrap rounded-full px-2 py-1.5 text-xs font-medium transition-colors hover:bg-white/10"
-              >
-                📋 Seating Chart
-              </button>
             </div>
           </div>,
           document.body,
         )}
+
+      {state.stage !== "result" && (
+        <button
+          type="button"
+          onClick={() => setChartOpen(true)}
+          className="mt-auto mb-6 w-full rounded-full border border-white/30 py-2.5 text-sm font-medium text-white/70 transition-colors hover:border-white/50 hover:text-white"
+        >
+          📋 View entire chart
+        </button>
+      )}
     </div>
   );
 }

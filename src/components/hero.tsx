@@ -22,7 +22,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-svh items-start justify-center bg-neutral-900 pt-16 pb-16 sm:items-center sm:pt-0 sm:pb-0 short:pt-6 short:pb-10"
+      className="relative flex min-h-svh flex-col items-center bg-neutral-900 pt-16 pb-16 sm:pt-16 sm:pb-0 short:pt-6 short:pb-10"
     >
       <picture className="absolute inset-0 overflow-hidden">
         <source srcSet={hero.mobileImage} media="(max-width: 768px)" />
@@ -39,7 +39,7 @@ export function Hero() {
         style={{ opacity: theme.heroOverlay }}
       />
 
-      <div className="relative z-10 mx-auto max-w-[900px] px-4 text-center text-white">
+      <div className="relative z-10 mx-auto flex max-w-[900px] flex-1 flex-col px-4 text-center text-white">
         {/* Moniker + emoji */}
         <div className={anim("flex items-center justify-center gap-3 sm:gap-5", "hero-element hero-delay-1")}>
           <h1
@@ -73,7 +73,7 @@ export function Hero() {
           </h3>
         </div>
 
-        <div className={anim("mt-6 short:mt-3", "hero-element hero-delay-3")}>
+        <div className={anim("mt-6 short:mt-3 flex flex-1 flex-col", "hero-element hero-delay-3")}>
           <SeatingSearch />
         </div>
       </div>
