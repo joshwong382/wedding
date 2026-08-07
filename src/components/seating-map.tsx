@@ -37,11 +37,13 @@ function Label({
   y,
   text,
   size = 11,
+  fill = "#6E6459",
 }: {
   x: number;
   y: number;
   text: string;
   size?: number;
+  fill?: string;
 }) {
   return (
     <text
@@ -49,7 +51,7 @@ function Label({
       y={y}
       textAnchor="middle"
       dominantBaseline="central"
-      fill="#6E6459"
+      fill={fill}
       fontSize={size}
       fontFamily="'Montserrat', system-ui, sans-serif"
       fontWeight={300}
@@ -64,7 +66,7 @@ function Label({
 export function SeatingMap({ highlightedTable }: { highlightedTable: string | null }) {
   return (
     <svg
-      viewBox="140 0 660 930"
+      viewBox="85 0 715 875"
       className="w-full h-auto max-h-[60vh] sm:max-h-[70vh]"
       role="img"
       aria-label="Venue floor plan"
@@ -79,12 +81,21 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
         </filter>
       </defs>
 
-      {/* Adjacent room */}
-      <rect x="15" y="122.5" width="170" height="607.5" fill="#EBE4D9" stroke="#CFC4B4" strokeWidth="1.5" />
-
-      {/* Main venue walls */}
+      {/* Public area — wraps our section down the left side and along the
+          bottom. Kept narrow and low-contrast: guests need to know it's there,
+          but it shouldn't compete with the seating. */}
       <polygon
-        points="185,20 615,20 615,75 785,75 785,502.5 615,502.5 615,780 242.5,780 242.5,730 185,730"
+        points="100,122.5 185,122.5 185,693 785,693 785,855 100,855"
+        fill="#F2EDE5"
+        stroke="#DED5C8"
+        strokeWidth="1"
+        strokeLinejoin="round"
+      />
+
+      {/* Main venue walls. The bottom wall sits above the photobooth and
+          welcome table, which are outside our section in the entry area. */}
+      <polygon
+        points="185,20 615,20 615,75 785,75 785,502.5 615,502.5 615,693 185,693"
         fill="#FDFBF8"
         stroke="#2B2622"
         strokeWidth="1.75"
@@ -118,8 +129,8 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
       {/* Right wall segment */}
       <line x1="615" y1="502.5" x2="785" y2="502.5" stroke="#CFC4B4" strokeWidth="1.25" />
 
-      {/* Entrance gap */}
-      <line x1="385" y1="780" x2="425" y2="780" stroke="#FDFBF8" strokeWidth="5" />
+      {/* Doorway: breaks the bottom wall between photobooth and welcome table */}
+      <line x1="352" y1="693" x2="456" y2="693" stroke="#FDFBF8" strokeWidth="5" />
 
       {/* Labels */}
       <text
@@ -140,9 +151,9 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
       <Label x={403.75} y={240} text="Dance" />
       <Label x={403.75} y={258} text="Floor" />
 
-      {/* Adjacent room label */}
-      <Label x={100} y={393} text="Adjacent" />
-      <Label x={100} y={413} text="room" />
+      {/* Left public area label — muted, so it reads as context not content */}
+      <Label x={142.5} y={393} text="Public" size={10} fill="#9A9086" />
+      <Label x={142.5} y={411} text="area" size={10} fill="#9A9086" />
 
       {/* Venue features */}
       <rect x="551" y="128" width="61" height="24" fill="#fff" stroke="#CFC4B4" strokeWidth="1" rx="2" />
@@ -159,12 +170,12 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
       <Label x={523.75} y={728} text="Welcome table" />
 
       <text
-        x={410}
-        y={745}
+        x={403}
+        y={722}
         textAnchor="middle"
         dominantBaseline="central"
         fill="#B8674A"
-        fontSize={12}
+        fontSize={11}
         fontFamily="'Montserrat', system-ui, sans-serif"
         fontWeight={500}
         letterSpacing=".14em"
@@ -190,10 +201,10 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
         CAKE
       </text>
 
-      {/* Entrance arrow: comes from right, turns 90° up into venue */}
-      <g className="seating-map-glow" style={{ transformOrigin: "470px 820px" }}>
+      {/* Entrance arrow: comes from right, turns 90° up through the doorway */}
+      <g className="seating-map-glow" style={{ transformOrigin: "535px 806px" }}>
         <path
-          d="M530 820 L410 820 L410 775 M404 785 L410 774 L416 785"
+          d="M640 806 L441 806 L441 703 M435 714 L441 702 L447 714"
           fill="none"
           stroke="#B8674A"
           strokeWidth="3"
@@ -201,8 +212,8 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
           strokeLinejoin="round"
         />
         <text
-          x="545"
-          y="820"
+          x="655"
+          y="806"
           textAnchor="start"
           dominantBaseline="central"
           fill="#B8674A"
@@ -216,25 +227,9 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
         </text>
       </g>
 
-      {/* Public area label */}
-      <Label x={400} y={845} text="Public area" />
-
-      {/* Bar */}
-      <rect x="320" y="865" width="160" height="32" fill="#fff" stroke="#CFC4B4" strokeWidth="1.5" rx="3" />
-      <text
-        x={400}
-        y={882}
-        textAnchor="middle"
-        dominantBaseline="central"
-        fill="#2B2622"
-        fontSize={14}
-        fontFamily="'Montserrat', system-ui, sans-serif"
-        fontWeight={500}
-        letterSpacing=".14em"
-        style={{ textTransform: "uppercase" as const }}
-      >
-        Bar
-      </text>
+      {/* Bar — directly below the photobooth, matching its width */}
+      <rect x="248" y="790" width="110" height="32" fill="#fff" stroke="#CFC4B4" strokeWidth="1.5" rx="3" />
+      <Label x={303} y={806} text="Bar" />
 
       {/* Vendor table */}
       <circle
