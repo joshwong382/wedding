@@ -12,7 +12,6 @@ import {
   saveGuest,
   clearSavedGuest,
   loadLang,
-  saveLang,
   type Lang,
 } from "@/lib/seating-search";
 import { BottomSheet } from "@/components/bottom-sheet";
@@ -78,14 +77,13 @@ export function SeatingSearch() {
     setTimeout(() => setMapOpen(true), 50);
   }, [lang]);
 
-  const setLanguage = useCallback((newLang: Lang) => {
-    setLang(newLang);
-    saveLang(newLang);
-    if (state.stage === "result") {
-      saveGuest(state.name, state.tableId, newLang);
-    }
-    window.dispatchEvent(new Event("seating-lang-changed"));
-  }, [state]);
+  function clearSearch() {
+    setQuery("");
+    setState({ stage: "idle" });
+    setChartHidden(false);
+    clearSavedGuest();
+    window.dispatchEvent(new Event("seating-guest-cleared"));
+  }
 
   function handleKeyDown(e: React.KeyboardEvent) {
     if (!showDropdown) return;
@@ -114,7 +112,7 @@ export function SeatingSearch() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-sm">
+    <div className="mx-auto w-full max-w-xs">
       <label
         htmlFor="seating-input"
         className="mb-2 block text-base font-bold tracking-[1.5px] text-white"
@@ -148,6 +146,19 @@ export function SeatingSearch() {
           spellCheck={false}
           className="starry-textbox w-full bg-transparent px-4 py-2 text-center text-base text-white outline-none"
         />
+
+        {query.length > 0 && (
+          <button
+            type="button"
+            onClick={clearSearch}
+            aria-label="Clear search"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-white/50 hover:text-white transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        )}
 
         {showDropdown && (
           <ul
