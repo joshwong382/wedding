@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useDeferredValue } from "react";
+import { useState, useEffect, useDeferredValue } from "react";
 import { seatingData } from "@/content/seating";
 import { siteConfig } from "@/content/site";
 import {
@@ -20,7 +20,6 @@ type SearchState =
 const STORAGE_KEY = "seating-guest";
 
 function loadSavedGuest(): SearchState {
-  if (typeof window === "undefined") return { stage: "idle" };
   const saved = localStorage.getItem(STORAGE_KEY);
   if (!saved) return { stage: "idle" };
   try {
@@ -31,14 +30,20 @@ function loadSavedGuest(): SearchState {
 }
 
 export function SeatingSearch() {
-  const [query, setQuery] = useState(() => {
-    const saved = loadSavedGuest();
-    return saved.stage === "result" ? saved.name : "";
-  });
-  const [state, setState] = useState<SearchState>(loadSavedGuest);
+  const [query, setQuery] = useState("");
+  const [state, setState] = useState<SearchState>({ stage: "idle" });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const deferredQuery = useDeferredValue(query);
+
+  // Hydrate from localStorage after mount to avoid SSR mismatch
+  useEffect(() => {
+    const saved = loadSavedGuest();
+    if (saved.stage === "result") {
+      setQuery(saved.name);
+      setState(saved);
+    }
+  }, []);
 
   const matches = state.stage !== "result"
     ? findGuestMatches(seatingData, deferredQuery)

@@ -5,21 +5,20 @@ import { useState, useEffect, useRef } from "react";
 
 const STORAGE_KEY = "seating-guest";
 
-function hasSelectedGuest() {
-  if (typeof window === "undefined") return false;
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) return false;
-    const { name, tableId } = JSON.parse(saved);
-    return !!(name && tableId);
-  } catch {
-    return false;
-  }
-}
-
 export function SeatingChartImage() {
-  const [collapsed, setCollapsed] = useState(() => hasSelectedGuest());
+  const [collapsed, setCollapsed] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Hydrate collapsed state from localStorage after mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const { name, tableId } = JSON.parse(saved);
+        if (name && tableId) setCollapsed(true);
+      }
+    } catch { /* ignore */ }
+  }, []);
 
   useEffect(() => {
     function onGuestSelected() {
