@@ -149,8 +149,8 @@ export function SeatingMap({ highlightedTable }: { highlightedTable: string | nu
       <Label x={581.5} y={140} text="DJ" />
 
       <rect x="650" y="460" width="81" height="40" fill="#fff" stroke="#CFC4B4" strokeWidth="1" rx="2" />
-      <Label x={690.5} y={477} text="Ice" />
-      <Label x={690.5} y={491} text="cream" />
+      <Label x={690.5} y={473} text="Ice" />
+      <Label x={690.5} y={487} text="cream" />
 
       <rect x="248" y="702" width="110" height="50" fill="#fff" stroke="#CFC4B4" strokeWidth="1" rx="2" />
       <Label x={303.5} y={728} text="Photobooth" />
