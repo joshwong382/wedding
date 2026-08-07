@@ -15,7 +15,10 @@ export interface DevoContent {
   readonly iceBreaker: {
     readonly heading: string;
     readonly question: string;
-    readonly note: string;
+  };
+  readonly loveLanguages: {
+    readonly heading: string;
+    readonly items: readonly string[];
   };
   readonly expressions: {
     readonly heading: string;
@@ -27,14 +30,11 @@ export interface DevoContent {
   };
   readonly insight: {
     readonly heading: string;
-    readonly text: string;
+    readonly items: readonly string[];
   };
   readonly discussion: {
     readonly heading: string;
-    readonly questions: readonly {
-      readonly text: string;
-      readonly subs: readonly string[];
-    }[];
+    readonly questions: readonly string[];
   };
 }
 

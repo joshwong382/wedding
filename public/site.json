@@ -17,9 +17,18 @@
         "title": "Devotional",
         "subtitle": "Love, Love, Love, Love",
         "iceBreaker": {
-          "heading": "🧊🔨 Ice-breaker",
-          "question": "What are Daniel and Eugenia's love languages for both giving and receiving love?",
-          "note": "5 Love Languages: Words of Affirmation, Acts of Service, Receiving Gifts, Quality Time, Physical Touch"
+          "heading": "Ice Breaker",
+          "question": "What are Daniel and Eugenia's love languages for both giving and receiving love?"
+        },
+        "loveLanguages": {
+          "heading": "5 Love Languages",
+          "items": [
+            "Words of Affirmation",
+            "Acts of Service",
+            "Receiving Gifts",
+            "Quality Time",
+            "Physical Touch"
+          ]
         },
         "expressions": {
           "heading": "4 Biblical Expressions of Love",
@@ -37,36 +46,32 @@
             {
               "term": "Storge",
               "greek": "στοργή",
-              "text": "Familial love shared among family members: Daniel, Jannie (Daniel's mom), Justin (Daniel's dad), Diane, Joshua, Eugenia, Jackie (Eugenia's mom), Wilson (Eugenia's dad), Marco (Eugenia's brother)"
+              "text": "Familial love shared among family members: Daniel, Justin, Jannie, Diane, Joshua, and Eugenia, Wilson, Jackie, Marco, and Mackenzie"
             },
             {
               "term": "Agape",
               "greek": "ἀγάπη",
-              "text": "The unconditional, sacrificial, selfless love of God. The love Daniel and Eugenia share for everyone here tonight is a reflection of God's unconditional love for them first."
+              "text": "The unconditional, selfless, sacrificial love of God. The love Daniel and Eugenia share for everyone here tonight is a reflection of God's unconditional love for them first."
             }
           ]
         },
         "scripture": {
-          "heading": "📖 1 John 4:10-12; 19",
+          "heading": "📖 1 John 4:10-12, 19",
           "text": "This is love: not that we loved God, but that he loved us and sent his Son as an atoning sacrifice for our sins. Dear friends, since God so loved us, we also ought to love one another. No one has ever seen God; but if we love one another, God lives in us and his love is made complete in us. … We love because he first loved us."
         },
         "insight": {
           "heading": "💭 Some Insight",
-          "text": "The 4 biblical expressions of love are woven in Daniel and Eugenia's story but it reminds us that their love is ultimately rooted in the love God has for us, for when he died on the cross for our sins."
+          "items": [
+            "Love didn't begin with us, it began with God",
+            "The greatest demonstration of God's love is that, while we were still sinners, God sent His one and only son, Jesus Christ, to die on the cross as an atoning sacrifice for our sins. Through believing in Jesus, we can receive forgiveness, new life, and the hope of eternal life with God.",
+            "The 4 biblical expressions of love are woven in Daniel and Eugenia's love story, from friendship, to romance, to family. But above all, their love points to God's Agape unconditional and sacrificial love. \"We love because He first loved us.\""
+          ]
         },
         "discussion": {
           "heading": "🗣️ Discussion (pick either or)",
           "questions": [
-            {
-              "text": "When you hear that God loves you unconditionally and sent Jesus to die for you, what thoughts or questions come to mind?",
-              "subs": [
-                "What is one way someone has shown you unconditional love? How did it impact you?"
-              ]
-            },
-            {
-              "text": "Which of these four types of love have you experienced most strongly in your life?",
-              "subs": []
-            }
+            "When you hear that God loves you unconditionally and sent Jesus to die for you, what thoughts, feelings, or questions come to mind?",
+            "What is one way someone has shown you unconditional love? How did it impact you?"
           ]
         }
       },
@@ -75,9 +80,18 @@
         "title": "灵修",
         "subtitle": "爱、爱、爱、爱",
         "iceBreaker": {
-          "heading": "🧊🔨 破冰话题",
-          "question": "Daniel 和 Eugenia 在付出与接受爱的时候，各自的爱的语言是什么？",
-          "note": "五种爱之语：肯定的言词、服务的行动、接受礼物、精心的时刻、身体的接触"
+          "heading": "破冰话题",
+          "question": "Daniel 和 Eugenia 在付出与接受爱的时候，各自的爱的语言是什么？"
+        },
+        "loveLanguages": {
+          "heading": "五种爱之语",
+          "items": [
+            "肯定的言词",
+            "服务的行动",
+            "接受礼物",
+            "精心的时刻",
+            "身体的接触"
+          ]
         },
         "expressions": {
           "heading": "圣经中四种爱的表达",
@@ -95,36 +109,32 @@
             {
               "term": "Storge",
               "greek": "στοργή",
-              "text": "家人之间的亲情：Daniel、Jannie（Daniel 的妈妈）、Justin（Daniel 的爸爸）、Diane、Joshua、Eugenia、Jackie（Eugenia 的妈妈）、Wilson（Eugenia 的爸爸）、Marco（Eugenia 的哥哥）。"
+              "text": "家人之间的亲情：Daniel、Justin、Jannie、Diane、Joshua，以及 Eugenia、Wilson、Jackie、Marco 和 Mackenzie。"
             },
             {
               "term": "Agape",
               "greek": "ἀγάπη",
-              "text": "神那无条件、牺牲、无私的爱。今夜 Daniel 与 Eugenia 向在座每一位所分享的爱，是源于神先爱他们的那份无条件的爱。"
+              "text": "神那无条件、无私、牺牲的爱。今夜 Daniel 与 Eugenia 向在座每一位所分享的爱，是源于神先爱他们的那份无条件的爱。"
             }
           ]
         },
         "scripture": {
-          "heading": "📖 约翰一书 4:10-12；19",
+          "heading": "📖 约翰一书 4:10-12, 19",
           "text": "不是我们爱神，乃是神爱我们，差他的儿子为我们的罪作了挽回祭，这就是爱了。亲爱的弟兄啊，神既是这样爱我们，我们也当彼此相爱。从来没有人见过神，我们若彼此相爱，神就住在我们里面，爱他的心在我们里面得以完全了。……我们爱，因为神先爱我们。"
         },
         "insight": {
           "heading": "💭 默想",
-          "text": "这四种圣经中爱的表达交织在 Daniel 与 Eugenia 的故事里，但这也提醒我们：他们的爱最终是根源于神对我们的爱——因他为我们的罪死在十字架上。"
+          "items": [
+            "爱不是从我们开始的，而是从神开始的。",
+            "神的爱最伟大的彰显，就是在我们还是罪人的时候，差遣他的独生子耶稣基督为我们的罪死在十字架上，作了挽回祭。借着信耶稣，我们可以得着赦免、新生命，以及与神同在的永生盼望。",
+            "这四种圣经中爱的表达交织在 Daniel 与 Eugenia 的爱情故事里——从友情，到爱情，再到亲情。但最重要的是，他们的爱指向了神那无条件、牺牲的 Agape 之爱。「我们爱，因为神先爱我们。」"
+          ]
         },
         "discussion": {
           "heading": "🗣️ 讨论（任选其一）",
           "questions": [
-            {
-              "text": "当你听见神无条件地爱你，并差耶稣为你而死，你心中浮现什么想法或疑问？",
-              "subs": [
-                "曾经有谁以无条件的爱待你？那件事如何影响了你？"
-              ]
-            },
-            {
-              "text": "这四种爱之中，哪一种是你生命中体会最深的？",
-              "subs": []
-            }
+            "当你听见神无条件地爱你，并差耶稣为你而死，你心中浮现什么想法、感受或疑问？",
+            "曾经有谁以无条件的爱待你？那件事如何影响了你？"
           ]
         }
       }
