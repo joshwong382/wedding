@@ -30,11 +30,21 @@ export function Devo() {
       {/* Header */}
       <header className="w-full px-5 pt-14 pb-5 text-center">
         <h2 className="font-display text-4xl tracking-wide" style={{ color: "#4A2040" }}>
-          {content.title}
+          {lang === "zh" ? devo.zh.title : devo.en.title}
         </h2>
+        <p className="text-sm mt-1.5 opacity-60" style={{ color: "#4A2040" }}>
+          {lang === "zh" ? devo.en.title : devo.zh.title}
+        </p>
       </header>
 
       <main className="max-w-3xl mx-auto px-5 py-12">
+        <div className="text-center mb-2">
+          <p className="font-display text-3xl sm:text-4xl" style={{ color: "#4A2040" }}>
+            {content.subtitle}
+          </p>
+        </div>
+        <Divider />
+
         {/* Ice Breaker */}
         <section className="text-center">
           <h2 className="font-heading text-2xl font-bold" style={{ color: "#4A2040" }}>
@@ -56,7 +66,7 @@ export function Devo() {
             {content.loveLanguages.items.map((item) => (
               <div
                 key={item}
-                className="rounded-xl p-4 sm:p-5 text-center shadow-sm w-[calc(50%-0.375rem)] sm:w-[calc(33.333%-0.667rem)]"
+                className="rounded-xl p-4 sm:p-5 text-center shadow-sm w-[calc(50%-0.375rem)] sm:w-[calc(33.333%-0.667rem)] flex items-center justify-center"
                 style={{ background: "#FBF5DC" }}
               >
                 <p className="font-medium text-sm sm:text-base" style={{ color: "#4A2040" }}>
@@ -95,7 +105,7 @@ export function Devo() {
           <h2 className="font-heading text-2xl font-bold" style={{ color: "#765D24" }}>
             {content.scripture.heading}
           </h2>
-          <blockquote className="mt-5 italic leading-loose text-base sm:text-[17px]" style={{ color: "#8C756A" }}>
+          <blockquote className="mt-5 italic leading-loose text-base sm:text-[17px] whitespace-pre-line" style={{ color: "#8C756A" }}>
             {content.scripture.text}
           </blockquote>
         </section>

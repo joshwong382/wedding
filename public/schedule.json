@@ -1,0 +1,17 @@
+[
+  { "time": "17:00", "label": "Cocktail Hour", "labelZh": "鸡尾酒会" },
+  { "time": "17:55", "label": "Please be seated", "labelZh": "敬请入座" },
+  { "time": "18:00", "label": "Reception Starts", "labelZh": "婚宴开始" },
+  { "time": "18:30", "label": "First Course", "labelZh": "第一道菜" },
+  { "time": "18:45", "label": "Second Course", "labelZh": "第二道菜" },
+  { "time": "19:00", "label": "Third Course", "labelZh": "第三道菜" },
+  { "time": "19:15", "label": "Fourth Course", "labelZh": "第四道菜" },
+  { "time": "19:30", "label": "Fifth Course", "labelZh": "第五道菜" },
+  { "time": "19:45", "label": "Sixth Course", "labelZh": "第六道菜" },
+  { "time": "20:00", "label": "Seventh Course", "labelZh": "第七道菜" },
+  { "time": "20:15", "label": "Eighth Course", "labelZh": "第八道菜" },
+  { "time": "20:30", "label": "Ninth Course", "labelZh": "第九道菜" },
+  { "time": "20:45", "label": "Tenth Course", "labelZh": "第十道菜" },
+  { "time": "21:00", "label": "Final speech", "labelZh": "最后致辞" },
+  { "time": "21:10", "label": "Dance floor opens!", "labelZh": "舞池开放" }
+]

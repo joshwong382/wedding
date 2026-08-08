@@ -19,6 +19,29 @@ import {
 import { BottomSheet } from "@/components/bottom-sheet";
 import { SeatingMap } from "@/components/seating-map";
 import { SeatingChartSheet } from "@/components/seating-chart-sheet";
+import scheduleData from "../../public/schedule.json";
+
+function useCurrentEvent(lang: Lang) {
+  const [label, setLabel] = useState<string | null>(null);
+
+  useEffect(() => {
+    function update() {
+      const now = new Date();
+      const mins = now.getHours() * 60 + now.getMinutes();
+      let current: (typeof scheduleData)[number] | null = null;
+      for (const item of scheduleData) {
+        const [h, m] = item.time.split(":").map(Number);
+        if (mins >= h! * 60 + m!) current = item;
+      }
+      setLabel(current ? (lang === "zh" ? current.labelZh : current.label) : null);
+    }
+    update();
+    const id = setInterval(update, 60_000);
+    return () => clearInterval(id);
+  }, [lang]);
+
+  return label;
+}
 
 type SearchState =
   | { stage: "idle" }
@@ -32,6 +55,7 @@ export function SeatingSearch() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const [chartOpen, setChartOpen] = useState(false);
+  const currentEvent = useCurrentEvent(lang);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [cardVisible, setCardVisible] = useState(true);
   const deferredQuery = useDeferredValue(query);
@@ -352,6 +376,14 @@ export function SeatingSearch() {
               >
                 📍 Floor plan
               </button>
+              {currentEvent && (
+                <>
+                  <span className="h-4 w-px shrink-0 bg-white/20" aria-hidden="true" />
+                  <span className="whitespace-nowrap px-2 text-xs opacity-80 truncate max-w-[140px] sm:max-w-[200px]">
+                    {currentEvent}
+                  </span>
+                </>
+              )}
             </div>
           </div>,
           document.body,

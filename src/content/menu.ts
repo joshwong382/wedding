@@ -1,7 +1,7 @@
 import menuData from "../../public/menu.json";
 
 export interface Course {
-  readonly order: number | null;
+  readonly order: number | string | null;
   readonly en: string;
   readonly zh: string;
 }
