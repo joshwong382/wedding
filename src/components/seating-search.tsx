@@ -371,7 +371,7 @@ export function SeatingSearch() {
                 type="button"
                 onClick={() => setMapOpen(true)}
                 tabIndex={cardVisible ? -1 : 0}
-                className="whitespace-nowrap shrink-0 rounded-full pl-3 pr-0 py-1.5 text-sm font-semibold transition-colors hover:bg-white/10"
+                className={`whitespace-nowrap shrink-0 rounded-full pl-3 py-1.5 text-sm font-semibold transition-colors hover:bg-white/10 ${currentEvent ? "pr-0" : "pr-3"}`}
               >
                 📍 {formatTableLabel(state.tableId)}
               </button>

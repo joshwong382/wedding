@@ -1,4 +1,5 @@
 [
+  { "time": "00:00", "label": "Starting soon...", "labelZh": "即将开始…" },
   { "time": "17:00", "label": "Cocktail Hour", "labelZh": "鸡尾酒会" },
   { "time": "17:55", "label": "Please be seated", "labelZh": "敬请入座" },
   { "time": "18:10", "label": "Entrances", "labelZh": "入场" },
@@ -14,6 +15,5 @@
   { "time": "20:45", "label": "Tenth Course", "labelZh": "第十道菜" },
   { "time": "21:00", "label": "Cake Cutting (Dessert)", "labelZh": "切蛋糕（甜品）" },
   { "time": "21:10", "label": "Let's Dance!", "labelZh": "舞池开放" },
-  { "time": "21:30", "label": "Late Night Snack", "labelZh": "宵夜" },
-  { "time": "23:59", "label": "Thanks for Coming!", "labelZh": "婚宴结束" }
+  { "time": "21:30", "label": "Late Night Snack", "labelZh": "宵夜" }
 ]
