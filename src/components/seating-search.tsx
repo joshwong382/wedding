@@ -22,7 +22,7 @@ import { SeatingChartSheet } from "@/components/seating-chart-sheet";
 import scheduleData from "../../public/schedule.json";
 
 function useCurrentEvent(lang: Lang) {
-  const [label, setLabel] = useState<string | null>(null);
+    const [event, setEvent] = useState<{ label: string; link?: string } | null>(null);
 
   useEffect(() => {
     function update() {
@@ -33,14 +33,17 @@ function useCurrentEvent(lang: Lang) {
         const [h, m] = item.time.split(":").map(Number);
         if (mins >= h! * 60 + m!) current = item;
       }
-      setLabel(current ? (lang === "zh" ? current.labelZh : current.label) : null);
+      setEvent(current ? {
+        label: lang === "zh" ? current.labelZh : current.label,
+        link: (current as { link?: string }).link,
+      } : null);
     }
     update();
     const id = setInterval(update, 60_000);
     return () => clearInterval(id);
   }, [lang]);
 
-  return label;
+  return event;
 }
 
 type SearchState =
@@ -357,31 +360,43 @@ export function SeatingSearch() {
         createPortal(
           <div
             aria-hidden={cardVisible}
-            className={`fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-all duration-300 ${
+            className={`fixed inset-x-0 bottom-0 z-40 flex justify-center px-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-all duration-300 ${
               cardVisible
                 ? "pointer-events-none translate-y-3 opacity-0"
                 : "translate-y-0 opacity-100"
             }`}
           >
-            <div className="flex max-w-full items-center rounded-full border border-white/10 bg-[#2B2622]/95 px-1 py-1.5 text-white shadow-lg backdrop-blur-sm">
-              <span className="whitespace-nowrap px-2 text-sm font-semibold">
-                {formatTableLabel(state.tableId)}
-              </span>
-              <span className="h-4 w-px shrink-0 bg-white/20" aria-hidden="true" />
+            <div className="flex items-center rounded-full border border-white/10 bg-[#2B2622]/95 px-1 py-1.5 text-white shadow-lg backdrop-blur-sm">
               <button
                 type="button"
                 onClick={() => setMapOpen(true)}
                 tabIndex={cardVisible ? -1 : 0}
-                className="whitespace-nowrap rounded-full px-2 py-1.5 text-xs font-medium transition-colors hover:bg-white/10"
+                className="whitespace-nowrap shrink-0 rounded-full pl-3 pr-0 py-1.5 text-sm font-semibold transition-colors hover:bg-white/10"
               >
-                📍 Floor plan
+                📍 {formatTableLabel(state.tableId)}
               </button>
               {currentEvent && (
                 <>
-                  <span className="h-4 w-px shrink-0 bg-white/20" aria-hidden="true" />
-                  <span className="whitespace-nowrap px-2 text-xs opacity-80 truncate max-w-[140px] sm:max-w-[200px]">
-                    {currentEvent}
+                  <span className="shrink-0 flex items-center gap-1.5 mx-3">
+                    <span className="h-4 w-px bg-white/20" />
+                    <span className="h-4 w-px bg-white/20" />
                   </span>
+                  {currentEvent.link ? (
+                    <a
+                      href={currentEvent.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pr-3 text-xs truncate flex items-center gap-1.5 underline underline-offset-2"
+                    >
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-green-400 animate-pulse" />
+                      {currentEvent.label}
+                    </a>
+                  ) : (
+                    <span className="pr-3 text-xs opacity-80 truncate flex items-center gap-1.5">
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-green-400 animate-pulse" />
+                      {currentEvent.label}
+                    </span>
+                  )}
                 </>
               )}
             </div>

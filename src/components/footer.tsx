@@ -29,7 +29,10 @@ export function Footer() {
             </a>
           </p>
           <p className="mt-2">
-            Website by {credits.builtBy} · {credits.email}
+            Website by {credits.builtBy}
+          </p>
+          <p className="mt-1">
+            {credits.email}
           </p>
         </div>
       </div>
