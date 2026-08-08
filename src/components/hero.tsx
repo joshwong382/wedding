@@ -25,12 +25,14 @@ export function Hero() {
       className="relative flex min-h-svh flex-col items-center bg-neutral-900 pt-16 pb-16 sm:pt-16 sm:pb-0 short:pt-6 short:pb-10"
     >
       <picture className="absolute inset-0 overflow-hidden">
-        <source srcSet={hero.mobileImage} media="(max-width: 768px)" />
+        <source srcSet={hero.mobileImage} media="(max-width: 768px)" type="image/webp" />
+        <source srcSet={hero.desktopImage} type="image/webp" />
         <img
           src={hero.desktopImage}
           alt=""
           className="h-full w-full object-cover"
           style={{ objectPosition: hero.imagePosition }}
+          fetchPriority="high"
         />
       </picture>
 

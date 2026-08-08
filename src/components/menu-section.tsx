@@ -114,10 +114,12 @@ export function MenuSection() {
           </ol>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/enzi-ice-cream.png"
+            src="/images/enzi-ice-cream.webp"
             alt="Enzi Ice Cream"
             className="mx-auto mt-6 mb-6 max-h-64"
-            loading="lazy"
+            loading="eager"
+            decoding="async"
+            fetchPriority="low"
           />
         </div>
       </div>

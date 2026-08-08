@@ -9,10 +9,13 @@
 export function SeatingChartSheet() {
   return (
     <img
-      src="/images/seating-chart.png"
+      src="/images/seating-chart.webp"
       alt="Full seating chart listing every table and guest"
       width={1836}
       height={2376}
+      loading="eager"
+      decoding="async"
+      fetchPriority="low"
       className="mx-auto h-auto w-full rounded-lg bg-white"
     />
   );

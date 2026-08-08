@@ -6,8 +6,8 @@
     "date": "AUGUST 8, 2026"
   },
   "hero": {
-    "desktopImage": "/images/desktopbg.jpeg",
-    "mobileImage": "/images/mobilebg.jpeg",
+    "desktopImage": "/images/desktopbg.webp",
+    "mobileImage": "/images/mobilebg.webp",
     "imagePosition": "45% 80%"
   },
   "sections": {
